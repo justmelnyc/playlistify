@@ -1,10 +1,14 @@
 module.exports = [{
   test: /\.tsx?$/,
-  exclude: /(node_modules|bower_components|typings|public\/)/,
-  loader: "ts-loader",
+  exclude: /(node_modules|bower_components|.d.ts|typings|public\/)/,
+  loader: "awesome-typescript-loader",
+}, {
+  test: /\.ts?$/,
+  exclude: /(node_modules|bower_components|.d.ts|typings|public\/)/,
+  loader: "awesome-typescript-loader",
 }, {
   test: /\.jsx?$/,
-  exclude: /(node_modules|bower_components|typings|public\/)/,
+  exclude: /(node_modules|bower_components|typings|.d.ts|public\/)/,
   loader: "babel",
   query: {
     presets: ['react']
@@ -37,4 +41,7 @@ module.exports = [{
   test: /\.png/,
   exclude: /(node_modules|bower_components|typings)/,
   loader: "url-loader?limit=10000&mimetype=image/png"
+}, {
+  test: /\.scss$/,
+  loaders: ['style', 'css', 'sass']
 }];
