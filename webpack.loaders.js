@@ -1,36 +1,40 @@
 module.exports = [{
- test: /\.jsx?$/,
- exclude: /(node_modules|bower_components|public\/)/,
- loader: "babel",
- query: {
-  presets: ['react']
- }
+  test: /\.tsx?$/,
+  exclude: /(node_modules|bower_components|typings|public\/)/,
+  loader: "ts-loader",
 }, {
- test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
- exclude: /(node_modules|bower_components)/,
- loader: "file"
+  test: /\.jsx?$/,
+  exclude: /(node_modules|bower_components|typings|public\/)/,
+  loader: "babel",
+  query: {
+    presets: ['react']
+  }
 }, {
- test: /\.(woff|woff2)$/,
- exclude: /(node_modules|bower_components)/,
- loader: "url?prefix=font/&limit=5000"
+  test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+  exclude: /(node_modules|bower_components|typings)/,
+  loader: "file"
 }, {
- test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
- exclude: /(node_modules|bower_components)/,
- loader: "url?limit=10000&mimetype=application/octet-stream"
+  test: /\.(woff|woff2)$/,
+  exclude: /(node_modules|bower_components|typings)/,
+  loader: "url?prefix=font/&limit=5000"
 }, {
- test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
- exclude: /(node_modules|bower_components)/,
- loader: "url?limit=10000&mimetype=image/svg+xml"
+  test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+  exclude: /(node_modules|bower_components|typings)/,
+  loader: "url?limit=10000&mimetype=application/octet-stream"
 }, {
- test: /\.gif/,
- exclude: /(node_modules|bower_components)/,
- loader: "url-loader?limit=10000&mimetype=image/gif"
+  test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+  exclude: /(node_modules|bower_components|typings)/,
+  loader: "url?limit=10000&mimetype=image/svg+xml"
 }, {
- test: /\.jpg/,
- exclude: /(node_modules|bower_components)/,
- loader: "url-loader?limit=10000&mimetype=image/jpg"
+  test: /\.gif/,
+  exclude: /(node_modules|bower_components|typings)/,
+  loader: "url-loader?limit=10000&mimetype=image/gif"
 }, {
- test: /\.png/,
- exclude: /(node_modules|bower_components)/,
- loader: "url-loader?limit=10000&mimetype=image/png"
+  test: /\.jpg/,
+  exclude: /(node_modules|bower_components|typings)/,
+  loader: "url-loader?limit=10000&mimetype=image/jpg"
+}, {
+  test: /\.png/,
+  exclude: /(node_modules|bower_components|typings)/,
+  loader: "url-loader?limit=10000&mimetype=image/png"
 }];
