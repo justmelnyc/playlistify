@@ -5,7 +5,7 @@ const SongDetails = (props) => {
     return (
       <div className="Song-details">
         a lot of details here
-    </div>
+      </div>
     );
   } else {
     return null;
@@ -23,12 +23,11 @@ class Song extends React.Component {
     this.setState((prevState) => ({
       showDetails: !prevState.showDetails,
     }));
-    console.log(this.state, 'asdf')
   }
 
   render() {
     return (
-      <div onClick={this.handleClick}  className="Song">
+      <div onClick={this.handleClick} className="Song">
         <div className="Song-song">{this.props.song}</div>
         <div className="Song-artist">{this.props.artist}</div>
         <div className="Song-album">{this.props.album}</div>
@@ -40,7 +39,6 @@ class Song extends React.Component {
     );
   }
 }
-
 
 
 
@@ -61,6 +59,20 @@ function SongsHeader() {
   );
 }
 
+export class Songs extends React.Component {
+  render() {
+    return (
+      <div className="Songs">
+        <SongsHeader />
+        <RandomSongs />
+      </div>
+    );
+  }
+}
+
+
+
+// DELETE
 function RandomSongs() {
   const data = [
     {
@@ -86,15 +98,4 @@ function RandomSongs() {
       })}
     </div>
   );
-}
-
-export class Songs extends React.Component {
-  render() {
-    return (
-      <div className="Songs">
-        <SongsHeader />
-        <RandomSongs />
-      </div>
-    )
-  }
 }
