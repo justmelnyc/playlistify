@@ -1,0 +1,1 @@
+If enzyme testing doesnt work go to its node modules directory and npm i
