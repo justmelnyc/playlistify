@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import Viewer from './Viewer';
+import Sorter from './Sorter';
 import { login } from './../actions/login'
 import ProfileBar from './../components/ProfileBar';
-import Songs from './../components/Songs';
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -12,7 +13,7 @@ const propTypes = {
 };
 
 class App extends Component {
-  
+
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(login())
@@ -24,7 +25,8 @@ class App extends Component {
     return (
       <div className="Container" >
         <ProfileBar profile={profile} />
-          <Songs musicData={musicData} />
+        <Sorter />
+        <Viewer />
       </div>
     )
   }

@@ -25,7 +25,8 @@ export function normalizeSpotifyMusicData(items) {
   return {
     songs: songData,
     albums: albumData,
-    artists: artistData
+    artists: artistData,
+    totalSongs: Object.keys(songData).length
   }
 }
 

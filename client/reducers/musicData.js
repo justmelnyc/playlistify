@@ -3,7 +3,8 @@ import * as types from '../constants/ActionTypes';
 const initialState = {
   songs: {},
   artists: {},
-  albums: {}
+  albums: {},
+  totalSongs: 0
 }
 
 export default function musicData(state = initialState, action) {

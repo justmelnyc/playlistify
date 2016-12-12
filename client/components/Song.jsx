@@ -9,7 +9,6 @@ const propTypes = {
 class Song extends React.Component {
 
   render() {
-    console.log(this.props)
     return (
       <div className="Song">
         <div className="Song-song">{this.props.song.name}</div>
