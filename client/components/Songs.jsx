@@ -1,76 +1,30 @@
-import * as React from 'react';
+import React, { PropTypes } from 'react'
 
-const SongDetails = (props) => {
-  if (props.showDetails) {
-    return (
-      <div className="Song-details">
-        a lot of details here
-      </div>
-    );
-  } else {
-    return null;
-  }
+import Song from './Song'
+
+const propTypes = {
+  musicData: PropTypes.shape({
+    albums: PropTypes.object.isRequired,
+    songs: PropTypes.object.isRequired,
+    artists: PropTypes.object.isRequired
+  })
+};
+
+const Songs = (props) => {
+  props = props.musicData
+
+  const songs = []
+
+  Object.keys(props.songs).forEach( (songKey) => {
+    const song = props.songs[songKey]
+    const album = props.albums[song.albumId]
+    const artist = props.artists[song.artistsId[0]]
+    songs.push(<Song key={song.id} song={song} album={album} artist={artist} />)
+  })
+
+  return <div> {songs} </div>
 }
 
-class Song extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { showDetails: false };
-    this.handleClick = this.handleClick.bind(this);
-  }
+Songs.propTypes = propTypes;
 
-  handleClick() {
-    this.setState((prevState) => ({
-      showDetails: !prevState.showDetails,
-    }));
-  }
-
-  render() {
-    const {name} = this.props.song
-    return (
-      <div onClick={this.handleClick} className="Song">
-        <div className="Song-song">{name}</div>
-        <div className="Song-artist">{this.props.artist}</div>
-        <div className="Song-album">{this.props.album}</div>
-        <div className="Song-remove">
-          <button className="btn btn-danger btn--small">Remove</button>
-        </div>
-        <SongDetails showDetails={this.state.showDetails} />
-      </div>
-    );
-  }
-}
-
-
-/**
- * 
- * Songs
- * 
- */
-
-function SongsHeader() {
-  return (
-    <div className="Songs-header Song">
-      <div className="Song-song">Song</div>
-      <div className="Song-artist">Artist</div>
-      <div className="Song-album">Album</div>
-      <div className="Song-remove">Remove</div>
-    </div>
-  );
-}
-
-export class Songs extends React.Component {
-  render() {
-    const {  songs } = this.props
-    return (
-      <div className="Songs">
-        <SongsHeader />
-        {songs &&
-          Object.keys(songs).map((id) =>
-            <Song key={id} song={songs[id]} />
-          )
-        }
-      </div>
-    );
-  }
-}
+export default Songs

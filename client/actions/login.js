@@ -1,19 +1,24 @@
 import * as types from './../constants/ActionTypes'
 import * as API from './../constants/SpotifyApi'
 import * as ApiHelper from './../helpers/apiHelpers'
-import * as NormalizeHelper from './../helpers/normalizeData'
 
-// TODO: REFACTOR THIS
+import {
+  normalizeSpotifyMusicData
+} from './../helpers/normalizeData'
+
+import {
+  getAccessTokenFromUrl
+} from './../helpers/util'
+
 
 /**
  * 
- * Login
- *  1. parse token from url 
- *  2. get users profile info 
- *  3. get all of the users saved songs 
+ * Parse the Access Token and then get the users profile
+ * 
  */
 
-export const initAuth = () => {
+
+export const login = () => {
   return (dispatch) => {
     const accessToken = getAccessTokenFromUrl()
     if (accessToken) {
@@ -25,10 +30,13 @@ export const initAuth = () => {
   }
 }
 
-function getAccessTokenFromUrl() {
-  const token = window.location.hash.split('&')[0].split('=')[1]
-  return token || null
-}
+
+/**
+ * 
+ * Get The Users Profile and then get the Users songs
+ * 
+ */
+
 
 function getUserProfile(accessToken) {
   return (dispatch) => {
@@ -44,48 +52,54 @@ function getUserProfile(accessToken) {
   }
 }
 
-function getUserSongs(accessToken) {
+
+/**
+ * 
+ * Get all of the users tracks through a recursive call
+ * 
+ */
+
+
+export function getUserSongs(accessToken) {
   return (dispatch) => {
-    songData(accessToken).then((d) => {
-        const normalized = NormalizeHelper.normalizeSpotifyMusicData(d)
-        return normalized
-      })
-      .then((data) => {
-        dispatch(receiveUserTracks(data))
-      })
+    getAllUserTracks(accessToken).then((data) => {
+      const normalizeData = normalizeSpotifyMusicData(data)
+      dispatch(receiveUserTracks(normalizeData))
+    })
   }
 }
 
-function songData(accessToken, url = 'https://api.spotify.com/v1/me/tracks?limit=50', data = []) {
+function getAllUserTracks(accessToken, url = API.trackUrl, items = []) {
   if (!url) {
-    return Promise.resolve(data)
+    return Promise.resolve(items)
   }
 
   // KEEP THIS JUST FOR DEV TO NOT BLOW UP SPOTIFY SERVERS
-  if (data.length > 140) {
-    return Promise.resolve(data)
+  if (items.length > 140) {
+    return Promise.resolve(items)
   }
 
   return fetch(url, ApiHelper.getRequest(accessToken))
     .then(ApiHelper.convertToJson)
     .then((res) => {
-      data = data.concat(res.items)
-      return songData(accessToken, res.next, data)
+      items = items.concat(res.items)
+      return getAllUserTracks(accessToken, res.next, items)
+    })
+    .catch((e) => {
+      dispatch(logOut(e))
+      return 
     })
 }
 
 
-function getAudioFeatures(accessToken, normalizedData) {
-  const trackIds = Object.keys(normalizedData.songs)
-  return trackIds
-}
-
 
 /**
  * 
- * Action Builders 
+ * Action Creators 
  * 
  */
+
+
 
 function receiveAccessToken(accessToken) {
   return {

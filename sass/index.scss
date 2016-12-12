@@ -3,48 +3,30 @@ $pink: #f0889d;
 $seafoam: #52ddc8;
 $radius: 5px;
 $spaceFromTop: 2rem;
-
-@import './../node_modules/bootstrap/scss/bootstrap.scss';
 $gradient--pinkPurple: linear-gradient(90deg, $purp -50%, $pink 150%);
-
 html,
 body {
   height: 100%;
+  box-sizing: border-box;
 }
 
 body {
   background: $gradient--pinkPurple;
 }
 
-.container,
-.container-fluid {
-  padding-top: $spaceFromTop;
+* {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 200;
 }
 
-.btn {
-  border-radius: 25px;
-  padding: 0.5rem 2.5rem;
-  font-size: 1.1rem;
-
-  &-primary {
-    @include button-variant($pink, $purp, rgba(0,0,0,0));
-  }
-
-  &--small {
-    padding: 0.2rem 1rem;
-    font-size: 0.9rem;
-  }
+.Container {
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 150px;
 }
 
-.jumbotron {
-  border-radius: $radius;
-  background: none;
-  color: $seafoam;;
-  text-align: center;
-  h1 {
-    font-size: 4rem;
-  }
-}
-
-@import 'filterbar';
+// Layout
+@import 'nav';
+// Components
+@import 'avatar';
 @import 'songs';

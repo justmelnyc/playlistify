@@ -1,27 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { initAuth } from './../actions/AuthActions'
-
-import { Songs } from './../components/Songs';
-
+import { login } from './../actions/login'
+import ProfileBar from './../components/ProfileBar';
+import Songs from './../components/Songs';
 
 const propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+  musicData: PropTypes.object.isRequired
 };
 
 class App extends Component {
+  
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(initAuth())
+    dispatch(login())
   }
 
   render() {
-    const { auth, songs } = this.props
-
+    const { musicData, songs, profile } = this.props
+    console.log(musicData)
     return (
-      <div>
-        <Songs songs={songs} />
+      <div className="Container" >
+        <ProfileBar profile={profile} />
+          <Songs musicData={musicData} />
       </div>
     )
   }
@@ -31,8 +34,8 @@ App.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    tracks: state.tracks
+    profile: state.profile,
+    musicData: state.musicData
   }
 }
 

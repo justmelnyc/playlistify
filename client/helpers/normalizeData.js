@@ -25,7 +25,7 @@ export function normalizeSpotifyMusicData(items) {
   return {
     songs: songData,
     albums: albumData,
-    artist: artistData
+    artists: artistData
   }
 }
 

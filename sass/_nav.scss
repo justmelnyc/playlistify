@@ -1,0 +1,22 @@
+$navBarHeight: 80px;
+nav.Navbar {
+  background: black;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: $navBarHeight;
+  padding: 0 1rem;
+  justify-content: space-between;
+
+  .Avatar {
+    width: $navBarHeight - 15px;
+    height: $navBarHeight - 15px;
+  }
+
+  h2 {
+    color: white;
+  }
+}
