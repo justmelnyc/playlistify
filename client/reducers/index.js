@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import auth from './auth'
-import userData from './userData'
+import profile from './profile'
+import songData from './songData'
 
 const rootReducer = combineReducers({
   auth,
-  userData
+  profile,
+  songData
 })
 
 export default rootReducer

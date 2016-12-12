@@ -4,7 +4,7 @@ const initialState = {
   profile: null
 }
 
-export default function userData(state = initialState, action) {
+export default function profile(state = initialState, action) {
   switch (action.type) {
     case types.RECEIVE_USER_PROFILE:
       return Object.assign({}, state, {
