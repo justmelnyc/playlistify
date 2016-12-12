@@ -5,7 +5,7 @@ import Songs from './Songs';
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  songs: PropTypes.object.isRequired,
+  trackList: PropTypes.array.isRequired,
   totalSongs: PropTypes.number.isRequired
 };
 
@@ -20,10 +20,7 @@ class Viewer extends React.Component {
   }
 
   currentPagination() {
-    const { songs } = this.props
-    const keys = Object.keys(songs)
-    const state = this.state
-    return keys.slice(state.pageStart, state.pageEnd)
+    return this.props.trackList.slice(this.state.pageStart, this.state.pageEnd)
   }
 
   nextPage() {
@@ -70,7 +67,7 @@ Viewer.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    songs: state.musicData.songs,
+    trackList: state.user.trackList,
     totalSongs: state.musicData.totalSongs
   }
 }

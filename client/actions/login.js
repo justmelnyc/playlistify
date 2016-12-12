@@ -65,6 +65,7 @@ export function getUserSongs(accessToken) {
     getAllUserTracks(accessToken).then((data) => {
       const normalizeData = normalizeSpotifyMusicData(data)
       dispatch(receiveUserTracks(normalizeData))
+      dispatch(updateUserTrackList(Object.keys(normalizeData.songs)))
     })
   }
 }
@@ -87,7 +88,7 @@ function getAllUserTracks(accessToken, url = API.trackUrl, items = []) {
     })
     .catch((e) => {
       dispatch(logOut(e))
-      return 
+      return
     })
 }
 
@@ -120,6 +121,13 @@ function receiveUserProfile(data) {
   return {
     type: types.RECEIVE_USER_PROFILE,
     profile: data
+  }
+}
+
+function updateUserTrackList(tracks) {
+  return {
+    type: types.UPDATE_USER_TRACK_LIST,
+    userTrackList: tracks
   }
 }
 

@@ -8,7 +8,7 @@ import ProfileBar from './../components/ProfileBar';
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   musicData: PropTypes.object.isRequired
 };
 
@@ -20,7 +20,11 @@ class App extends Component {
   }
 
   render() {
-    const { musicData, songs, profile } = this.props
+    const { musicData, songs, user } = this.props
+    const { profile } = user
+
+    console.log(user)
+
     console.log(musicData)
     return (
       <div className="Container" >
@@ -36,7 +40,7 @@ App.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile,
+    user: state.user,
     musicData: state.musicData
   }
 }

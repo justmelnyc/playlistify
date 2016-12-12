@@ -14,7 +14,9 @@ const propTypes = {
 
 const Songs = (props) => {
   const songs = props.songKeys.map((songKey, i) => {
+    console.log(songKey)
     const song = props.songs[songKey]
+    console.log(props.songs)
     const album = props.albums[song.albumId]
     const artist = props.artists[song.artistsId[0]]
     return <Song key={i} song={song} album={album} artist={artist} />
@@ -26,7 +28,7 @@ const Songs = (props) => {
 Songs.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return Object.assign({}, state.musicData)
+  return state.musicData
 }
 
 export default connect(mapStateToProps)(Songs);
