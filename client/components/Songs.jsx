@@ -26,9 +26,10 @@ class Song extends React.Component {
   }
 
   render() {
+    const {name} = this.props.song
     return (
       <div onClick={this.handleClick} className="Song">
-        <div className="Song-song">{this.props.song}</div>
+        <div className="Song-song">{name}</div>
         <div className="Song-artist">{this.props.artist}</div>
         <div className="Song-album">{this.props.album}</div>
         <div className="Song-remove">
@@ -39,7 +40,6 @@ class Song extends React.Component {
     );
   }
 }
-
 
 
 /**
@@ -61,41 +61,16 @@ function SongsHeader() {
 
 export class Songs extends React.Component {
   render() {
+    const {  songs } = this.props
     return (
       <div className="Songs">
         <SongsHeader />
-        <RandomSongs />
+        {songs &&
+          Object.keys(songs).map((id) =>
+            <Song key={id} song={songs[id]} />
+          )
+        }
       </div>
     );
   }
-}
-
-
-
-// DELETE
-function RandomSongs() {
-  const data = [
-    {
-      song: "flume",
-      artist: "Bon Iver",
-      album: "Emma, Forever Ago"
-    },
-    {
-      song: "The Wolves",
-      artist: "Bon Iver",
-      album: "Emma, Forever Ago"
-    },
-    {
-      song: "For Emma",
-      artist: "Bon Iver",
-      album: "Emma, Forever Ago"
-    }
-  ];
-  return (
-    <div>
-      {data.map((d) => {
-        return <Song key={d.song} song={d.song} artist={d.artist} album={d.album} />
-      })}
-    </div>
-  );
 }

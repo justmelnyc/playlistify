@@ -1,4 +1,7 @@
 import * as types from './../constants/ActionTypes'
+import * as API from './../constants/SpotifyApi'
+import * as ApiHelper from './../helpers/apiHelpers'
+import * as NormalizeHelper from './../helpers/normalizeData'
 
 // TODO: REFACTOR THIS
 
@@ -29,13 +32,8 @@ function getAccessTokenFromUrl() {
 
 function getUserProfile(accessToken) {
   return (dispatch) => {
-    fetch('https://api.spotify.com/v1/me', {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + accessToken
-        }
-      })
-      .then(res => res.json())
+    fetch(API.profileUrl, ApiHelper.getRequest(accessToken))
+      .then(ApiHelper.convertToJson)
       .then((d) => {
         dispatch(receiveUserProfile(d))
         return dispatch(getUserSongs(accessToken))
@@ -49,12 +47,12 @@ function getUserProfile(accessToken) {
 function getUserSongs(accessToken) {
   return (dispatch) => {
     songData(accessToken).then((d) => {
-      const normalized = normalizeSpotifySongData(d)
-      return getAudioFeatures(accessToken, normalized)
-    })
-    .then((data) => {
-      dispatch(receiveUserTracks(data))
-    })
+        const normalized = NormalizeHelper.normalizeSpotifyMusicData(d)
+        return normalized
+      })
+      .then((data) => {
+        dispatch(receiveUserTracks(data))
+      })
   }
 }
 
@@ -68,13 +66,8 @@ function songData(accessToken, url = 'https://api.spotify.com/v1/me/tracks?limit
     return Promise.resolve(data)
   }
 
-  return fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      }
-    })
-    .then(res => res.json())
+  return fetch(url, ApiHelper.getRequest(accessToken))
+    .then(ApiHelper.convertToJson)
     .then((res) => {
       data = data.concat(res.items)
       return songData(accessToken, res.next, data)
@@ -87,75 +80,6 @@ function getAudioFeatures(accessToken, normalizedData) {
   return trackIds
 }
 
-// LEFT OFF AT 
-// GOING THROUGH AND UPDATING ALL THE SONG DATA WITH THE VELOCITY OF SONGS
-// TAKE IN THE NORMALIZED OBJECT AND RETURN AND UPDATED ON
-function audioFeaturesByIds(accessToken, ids, normalized) {
-  if (ids.length <= 0) {
-    return Promise.resolve(normalized)
-  }
-
-  // return fetch()
-}
-
-
-
-function normalizeSpotifySongData(items) {
-  const songData = {}
-  const albumData = {}
-  const artistData = {}
-
-  items.forEach((song) => {
-    const track = song.track;
-    const artists = song.track.artists
-    const album = song.track.album
-
-    songData[track.id] = {
-      addedAt: song.added_at,
-      albumId: album.id,
-      artistsId: artists.map((artist) => {
-        return artist.id
-      }),
-      discNumber: track.disc_number,
-      duractionMs: track.duration_ms,
-      explicit: track.explicit,
-      href: track.href,
-      name: track.name,
-      popularity: track.popularity,
-      previewUrl: track.preview_url,
-      trackNumber: track.track_number,
-      type: track.type,
-      uri: track.uri
-    }
-
-    albumData[album.id] = {
-      albumType: album.album_type,
-      artistIds: album.artists.map((artist) => {
-        return artist.id
-      }),
-      images: album.images,
-      name: album.name,
-      type: album.type,
-      uri: album.uri
-    }
-
-    artists.forEach((artist) => {
-      artistData[artist.id] = {
-        href: artist.href,
-        name: artist.name,
-        type: artist.type,
-        uri: artist.uri
-      }
-    })
-
-  })
-
-  return {
-    songs: songData,
-    albums: albumData,
-    artist: artistData
-  }
-}
 
 /**
  * 

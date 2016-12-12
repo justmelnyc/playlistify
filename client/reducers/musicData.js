@@ -1,6 +1,6 @@
 import * as types from '../constants/ActionTypes';
 
-export default function tracks(state = {}, action) {
+export default function musicData(state = {}, action) {
   switch (action.type) {
     case types.RECEIVE_SONG_DATA:
       return Object.assign({}, state, action.data)
