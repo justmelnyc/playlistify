@@ -7,9 +7,7 @@ const initialState = {
 export default function profile(state = initialState, action) {
   switch (action.type) {
     case types.RECEIVE_USER_PROFILE:
-      return Object.assign({}, state, {
-        profile: action.profile
-      })
+      return Object.assign({}, state, action.profile)
     
     default:
       return state

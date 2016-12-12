@@ -1,5 +1,7 @@
 import * as types from './../constants/ActionTypes'
 
+// TODO: REFACTOR THIS
+
 /**
  * 
  * Login
@@ -47,7 +49,11 @@ function getUserProfile(accessToken) {
 function getUserSongs(accessToken) {
   return (dispatch) => {
     songData(accessToken).then((d) => {
-      dispatch(receiveUserSongs(d))
+      const normalized = normalizeSpotifySongData(d)
+      return getAudioFeatures(accessToken, normalized)
+    })
+    .then((data) => {
+      dispatch(receiveUserTracks(data))
     })
   }
 }
@@ -73,6 +79,82 @@ function songData(accessToken, url = 'https://api.spotify.com/v1/me/tracks?limit
       data = data.concat(res.items)
       return songData(accessToken, res.next, data)
     })
+}
+
+
+function getAudioFeatures(accessToken, normalizedData) {
+  const trackIds = Object.keys(normalizedData.songs)
+  return trackIds
+}
+
+// LEFT OFF AT 
+// GOING THROUGH AND UPDATING ALL THE SONG DATA WITH THE VELOCITY OF SONGS
+// TAKE IN THE NORMALIZED OBJECT AND RETURN AND UPDATED ON
+function audioFeaturesByIds(accessToken, ids, normalized) {
+  if (ids.length <= 0) {
+    return Promise.resolve(normalized)
+  }
+
+  // return fetch()
+}
+
+
+
+function normalizeSpotifySongData(items) {
+  const songData = {}
+  const albumData = {}
+  const artistData = {}
+
+  items.forEach((song) => {
+    const track = song.track;
+    const artists = song.track.artists
+    const album = song.track.album
+
+    songData[track.id] = {
+      addedAt: song.added_at,
+      albumId: album.id,
+      artistsId: artists.map((artist) => {
+        return artist.id
+      }),
+      discNumber: track.disc_number,
+      duractionMs: track.duration_ms,
+      explicit: track.explicit,
+      href: track.href,
+      name: track.name,
+      popularity: track.popularity,
+      previewUrl: track.preview_url,
+      trackNumber: track.track_number,
+      type: track.type,
+      uri: track.uri
+    }
+
+    albumData[album.id] = {
+      albumType: album.album_type,
+      artistIds: album.artists.map((artist) => {
+        return artist.id
+      }),
+      images: album.images,
+      name: album.name,
+      type: album.type,
+      uri: album.uri
+    }
+
+    artists.forEach((artist) => {
+      artistData[artist.id] = {
+        href: artist.href,
+        name: artist.name,
+        type: artist.type,
+        uri: artist.uri
+      }
+    })
+
+  })
+
+  return {
+    songs: songData,
+    albums: albumData,
+    artist: artistData
+  }
 }
 
 /**
@@ -103,9 +185,9 @@ function receiveUserProfile(data) {
   }
 }
 
-function receiveUserSongs(data) {
+function receiveUserTracks(data) {
   return {
     type: types.RECEIVE_SONG_DATA,
-    songs: data
+    data
   }
 }
