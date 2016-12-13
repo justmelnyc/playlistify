@@ -9,8 +9,9 @@ export const getTrackData = () => {
     const accessToken = getState().user.accessToken
 
     paginateTrackItems(accessToken).then((tracks) => {
-      const normalizrData = normalizeTrackArray(tracks)
+      // const normalizrData = normalizeTrackArray(tracks)
         // console.log(normalizrData)
+        console.log(tracks)
         // dispatch(ActionCreator.receiveApiEntities(normalizrData))
     })
   }
@@ -59,11 +60,11 @@ function paginateTrackAudioAnalysis(accessToken, entities, trackIds) {
   return fetch(url, API.GETRequest(accessToken))
     .then(API.parseJSON)
     .then((res) => {
-      console.log(res)
-
-      // WORKING
-      // merge res into entities here
-
+      const tracks = entities.entities.tracks
+      res.audio_features.forEach((audioFeature) => {
+        const id = audioFeature.id
+        Object.assign(tracks[id], audioFeature)
+      })
       return paginateTrackAudioAnalysis(accessToken, entities, trackIds)
     })
 }
