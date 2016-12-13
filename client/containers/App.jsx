@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 
 import Viewer from './Viewer';
 import Sorter from './Sorter';
-import { login } from './../actions/login'
+
+import * as AuthedActions from './../actions/AuthedUser'
+
 import ProfileBar from './../components/ProfileBar';
 
 import Table from './../components/Table';
@@ -18,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(login())
+    dispatch(AuthedActions.initialLogin())
   }
 
   headerClickHandler() {

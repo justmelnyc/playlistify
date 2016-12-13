@@ -1,6 +1,6 @@
 import user from './../../client/reducers/user'
 import * as types from './../../client/constants/ActionTypes'
-import * as ActionBuilders from './../../client/actions/actionBuilders'
+import * as ActionCreators from './../../client/actions/ActionCreators'
 
 describe('User: ', () => {
   it('should return correct initial state when no action type provided', () => {
@@ -15,7 +15,7 @@ describe('User: ', () => {
   it('#receiveAccessToken() should log in', () => {
     const accessToken = 'af13rfjdsfaf'
     const state = user(
-      undefined, ActionBuilders.receiveAccessToken(accessToken)
+      undefined, ActionCreators.receiveAccessToken(accessToken)
     )
 
     expect(state).toEqual({
@@ -34,7 +34,7 @@ describe('User: ', () => {
 
     const newState = user(
       loggedInState,
-      ActionBuilders.invalidateUserSesssion()
+      ActionCreators.invalidateUserSesssion()
     )
 
     expect(newState).toEqual({
@@ -56,7 +56,7 @@ describe('User: ', () => {
 
     const state = user(
       loggedInState,
-      ActionBuilders.receiveUserProfile(profile)
+      ActionCreators.receiveUserProfile(profile)
     )
 
     expect(state).toEqual({
