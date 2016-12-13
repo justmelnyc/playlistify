@@ -14,6 +14,13 @@ module.exports = [{
     presets: ['react']
   }
 }, {
+  test: /\.js?$/,
+  exclude: /(node_modules|bower_components|typings|.d.ts|public\/)/,
+  loader: "babel",
+  query: {
+    presets: ['react']
+  }
+}, {
   test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
   exclude: /(node_modules|bower_components|typings)/,
   loader: "file"
