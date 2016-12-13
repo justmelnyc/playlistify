@@ -12,8 +12,7 @@ import Table from './../components/Table';
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  musicData: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 };
 
 class App extends Component {
