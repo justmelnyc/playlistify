@@ -10,6 +10,9 @@ import {
   getAccessTokenFromUrl
 } from './../helpers/util'
 
+import {
+  normalizeTrackArray
+} from './../helpers/dataNormalizer'
 
 /**
  * 
@@ -64,7 +67,8 @@ function getUserProfile(accessToken) {
 export function getUserSongs(accessToken) {
   return (dispatch) => {
     getAllUserTracks(accessToken).then((data) => {
-      console.log('DATATATATAT',data)
+      const normalizrData = normalizeTrackArray(data)
+      console.log(normalizrData)
       const normalizeData = normalizeSpotifyMusicData(data)
       dispatch(receiveUserTracks(normalizeData))
       dispatch(updateUserTrackList(Object.keys(normalizeData.songs)))
