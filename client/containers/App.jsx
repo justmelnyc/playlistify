@@ -1,3 +1,21 @@
+const DATA = [
+  {
+    "row1": "1Lorem ipsum  sit amet",
+    "row2": "1Lorem dolor sit amet",
+    "row3": "1Lorem ipsum dolor  amet"
+  },
+  {
+    "row1": "2Lor ipsum dolor sit amet",
+    "row2": "2Lorem ipsum dolor sit amet",
+    "row3": "2Lorm ipsum dolor sit aet"
+  },
+  {
+    "row1": "3Lom ipsum dolor sit amet",
+    "row2": "3Lorem sum dolor sit amet",
+    "row3": "3Lorem ipsum dor sit amet"
+  }
+]
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
@@ -5,6 +23,8 @@ import Viewer from './Viewer';
 import Sorter from './Sorter';
 import { login } from './../actions/login'
 import ProfileBar from './../components/ProfileBar';
+
+import Table from './../components/Table';
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -19,6 +39,10 @@ class App extends Component {
     dispatch(login())
   }
 
+  headerClickHandler() {
+    console.log('header')
+  }
+
   render() {
     const { musicData, songs, user } = this.props
     const { profile } = user
@@ -28,6 +52,7 @@ class App extends Component {
     console.log(musicData)
     return (
       <div className="Container" >
+        <Table data={DATA} onHeaderClick={this.headerClickHandler.bind(this)}/>
         <ProfileBar profile={profile} />
         <Sorter />
         <Viewer />

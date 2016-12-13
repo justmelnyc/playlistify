@@ -18,8 +18,15 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
   },
+
+  externals: {
+    'cheerio': 'window',
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
+  },
   resolve: {
-    extensions: ['', '.js', '.jsx', ".ts", ".tsx",]
+    extensions: ['', '.js', '.jsx', ".ts", ".tsx", ]
   },
   module: {
     loaders
