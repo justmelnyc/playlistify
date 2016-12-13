@@ -16,6 +16,11 @@ const DATA = [
   }
 ]
 
+const SORT_ASC = {
+          key: Object.keys(DATA[0])[0],
+          direction: 'desc'
+        }
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
@@ -52,7 +57,8 @@ class App extends Component {
     console.log(musicData)
     return (
       <div className="Container" >
-        <Table data={DATA} onHeaderClick={this.headerClickHandler.bind(this)}/>
+        <Table data={DATA} sort={SORT_ASC} onHeaderClick={this.headerClickHandler.bind(this)}/>
+
         <ProfileBar profile={profile} />
         <Sorter />
         <Viewer />

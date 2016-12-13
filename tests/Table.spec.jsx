@@ -87,38 +87,32 @@ describe('Table Component: ', () => {
     expect(func.calls.all().length).toEqual(Object.keys(DATA[0]).length)
   })
 
+  const testIfSortClassIsAdded = (sortClass) => {
+    const clickableTable = mount(<Table data={DATA} sort={sortClass} />)
+    const headerItems = 
+      clickableTable.find(TABLE_ROW_HEADER).find(TABLE_ITEM_CLASS)
+
+    headerItems.forEach((item) => {
+      if (item.key() === sortClass.key) {
+        expect(item.hasClass(sortClass.direction)).toBeTruthy()
+      } else {
+        expect(item.hasClass(sortClass.direction)).toBe(false)
+      }
+    })
+  }
+
   it('when given props sort it should add the appropriate class', () => {
     const ascSort = {
       key: Object.keys(DATA[0])[0],
       direction: ASCENDING_ORDER_CLASS
     }
-    const clickableTable = mount(<Table data={DATA} sort={ascSort} />)
-    const headerItems = 
-      clickableTable.find(TABLE_ROW_HEADER).find(TABLE_ITEM_CLASS)
-
-    headerItems.forEach((item) => {
-      if (item.key() === ascSort.key) {
-        expect(item.hasClass(ASCENDING_ORDER_CLASS)).toBeTruthy()
-      } else {
-        expect(item.hasClass(ASCENDING_ORDER_CLASS)).toBe(false)
-      }
-    })
+    testIfSortClassIsAdded(ascSort)
 
     const descSort = {
       key: Object.keys(DATA[0])[0],
       direction: DESCENDING_ORDER_CLASS
     }
-    const clickableTable = mount(<Table data={DATA} sort={descSort} />)
-    const headerItems = 
-      clickableTable.find(TABLE_ROW_HEADER).find(TABLE_ITEM_CLASS)
-
-    headerItems.forEach((item) => {
-      if (item.key() === descSort.key) {
-        expect(item.hasClass(DESCENDING_ORDER_CLASS)).toBeTruthy()
-      } else {
-        expect(item.hasClass(DESCENDING_ORDER_CLASS)).toBe(false)
-      }
-    })
+    testIfSortClassIsAdded(descSort)
 
   })
 })
