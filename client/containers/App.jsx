@@ -8,6 +8,8 @@ import ProfileBar from './../components/ProfileBar';
 
 import Table from './../components/Table';
 
+import { normalizeTest } from './../actions/api'
+
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
@@ -18,7 +20,8 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(login())
+    // dispatch(login())
+    normalizeTest()
   }
 
   headerClickHandler() {

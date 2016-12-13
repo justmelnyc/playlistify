@@ -64,6 +64,7 @@ function getUserProfile(accessToken) {
 export function getUserSongs(accessToken) {
   return (dispatch) => {
     getAllUserTracks(accessToken).then((data) => {
+      console.log('DATATATATAT',data)
       const normalizeData = normalizeSpotifyMusicData(data)
       dispatch(receiveUserTracks(normalizeData))
       dispatch(updateUserTrackList(Object.keys(normalizeData.songs)))

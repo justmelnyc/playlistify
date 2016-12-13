@@ -9,7 +9,7 @@ export default function user(state = initialState, action) {
   switch (action.type) {
 
     case types.RECEIVE_USER_PROFILE:
-      return Object.assing({}, state, {
+      return Object.assign({}, state, {
         requestingUserProfile: false
       })
 
