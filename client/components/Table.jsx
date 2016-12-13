@@ -18,7 +18,11 @@ class Table extends React.Component {
 
   buildTableItems(datum) {
     const keys = Object.keys(datum)
-    return keys.map((key, i) => <div className="Table-item" key={key}>{datum[key]}</div>)
+    return keys.map((key, i) => <div className="Table-item" key={key}>{datum[key].name}</div>)
+  }
+
+  getKeys() {
+    return this.props.data[0] ? Object.keys(this.props.data[0]) : [] 
   }
 
   render() {
@@ -26,7 +30,7 @@ class Table extends React.Component {
       <div>
         <TableHeader
           itemClickHandler={this.props.onHeaderClick}
-          cols={Object.keys(this.props.data[0])} 
+          cols={this.getKeys()} 
           sort={this.props.sort}/>
 
         {this.props.data.map((datum, i) => {

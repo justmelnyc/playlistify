@@ -7,6 +7,12 @@ const initialState = {
 
 export default function user(state = initialState, action) {
   switch (action.type) {
+
+    case types.RECEIVE_USER_PROFILE:
+      return Object.assing({}, state, {
+        requestingUserProfile: false
+      })
+
     case types.RECEIVE_USER_PROFILE:
       return Object.assign({}, state, {
         profile: action.profile

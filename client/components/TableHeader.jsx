@@ -17,7 +17,7 @@ class TableHeader extends React.Component {
   /**
 	 * 
 	 * Returns the key and and either asc or desc
-	 * {
+	 * sort = {
 	 *  key: OBJECT KEY,
 	 *  direction: 'asc' | 'desc'
 	 * }

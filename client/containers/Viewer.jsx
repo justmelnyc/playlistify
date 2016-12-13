@@ -2,11 +2,15 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux';
 
 import Songs from './Songs';
+import Table from './../components/Table'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
   trackList: PropTypes.array.isRequired,
-  totalSongs: PropTypes.number.isRequired
+  totalSongs: PropTypes.number.isRequired,
+  songs: PropTypes.object.isRequired,
+  albums: PropTypes.object.isRequired,
+  artists: PropTypes.object.isRequired
 };
 
 class Viewer extends React.Component {
@@ -52,10 +56,26 @@ class Viewer extends React.Component {
     })
   }
 
+  generateSongsFromTrackList() {
+    const songs = this.currentPagination().map((songKey, i) => {
+      console.log(songKey)
+      const song = this.props.songs[songKey]
+      const album = this.props.albums[song.albumId]
+      const artist = this.props.artists[song.artistsId[0]]
+
+      return {
+        song: song,
+        album: album,
+        artist: artist
+      }
+    })
+    return songs || [{}];
+  }
+
   render() {
     return (
       <div>
-        <Songs songKeys={this.currentPagination()} />
+        <Table data={this.generateSongsFromTrackList()} />
         <button disabled={this.state.pageStart === 0} onClick={this.prevPage.bind(this)}>prev</button>
         <button disabled={this.state.pageEnd >= this.props.totalSongs} onClick={this.nextPage.bind(this)}>next</button>
       </div>
@@ -66,10 +86,9 @@ class Viewer extends React.Component {
 Viewer.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return {
+  return Object.assign({}, state.musicData, {
     trackList: state.user.trackList,
-    totalSongs: state.musicData.totalSongs
-  }
+  })
 }
 
 export default connect(mapStateToProps)(Viewer);

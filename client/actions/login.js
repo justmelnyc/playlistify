@@ -40,6 +40,7 @@ export const login = () => {
 
 function getUserProfile(accessToken) {
   return (dispatch) => {
+    dispatch(requestingUserData())
     fetch(API.profileUrl, ApiHelper.getRequest(accessToken))
       .then(ApiHelper.convertToJson)
       .then((d) => {
@@ -100,7 +101,12 @@ function getAllUserTracks(accessToken, url = API.trackUrl, items = []) {
  * 
  */
 
-
+function requestingUserData() {
+  return {
+    type: types.REQUESTING_USER_DATA,
+    requestingData: true
+  }
+}
 
 function receiveAccessToken(accessToken) {
   return {
@@ -134,6 +140,7 @@ function updateUserTrackList(tracks) {
 function receiveUserTracks(data) {
   return {
     type: types.RECEIVE_SONG_DATA,
+    requestingUserProfile: false,
     data
   }
 }
