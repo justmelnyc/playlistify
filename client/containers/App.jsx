@@ -24,20 +24,17 @@ class App extends Component {
   }
 
   headerClickHandler() {
-    console.log('header')
+    console.log('state')
   }
 
   render() {
     const { musicData, songs, user } = this.props
     const { profile } = user
 
-    console.log(user)
 
-    console.log(musicData)
     return (
       <div className="Container" >
-        <ProfileBar profile={profile} />
-        <Viewer />
+
       </div>
     )
   }
@@ -46,10 +43,10 @@ class App extends Component {
 App.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return {
-    user: state.user,
-    musicData: state.musicData
-  }
+  return state
 }
 
 export default connect(mapStateToProps)(App);
+
+        // <ProfileBar profile={profile} />
+        // <Viewer />

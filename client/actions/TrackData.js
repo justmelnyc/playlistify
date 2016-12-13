@@ -1,12 +1,16 @@
 import * as ActionCreators from './ActionCreators';
-import * as API from './../constants/SpotifyApi'
+import * as API from './../helpers/SpotifyApi'
+import {
+  normalizeTrackArray
+} from './../helpers/DataNormalizer'
 
 export const getTrackData = () => {
   return (dispatch, getState) => {
     const accessToken = getState().user.accessToken
 
-    pageThroughAllTracks(accessToken).then((tracks) => {
-      const normalizrData = normalizeTrackArray(data)
+    paginateApiData(accessToken).then((tracks) => {
+      const normalizrData = normalizeTrackArray(tracks)
+      console.log(normalizrData)
         // dispatch(ActionCreator.receiveApiEntities(normalizrData))
     })
   }

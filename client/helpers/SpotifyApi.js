@@ -13,3 +13,8 @@ export const GETRequest = (accessToken) => {
 export const parseJSON = (res) => {
   return Promise.resolve(res.json())
 }
+
+export const getAccessTokenFromUrl = () => {
+  const token = window.location.hash.split('&')[0].split('=')[1]
+  return token || null
+}
