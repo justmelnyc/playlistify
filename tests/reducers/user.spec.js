@@ -1,7 +1,8 @@
 import user from './../../client/reducers/user'
 import * as types from './../../client/constants/ActionTypes'
+import * as ActionBuilders from './../../client/actions/actionBuilders'
 
-describe('User Reducer: ', () => {
+describe('User: ', () => {
   it('should return correct initial state when no action type provided', () => {
     const initialState = user(undefined, {})
     expect(initialState).toEqual({
@@ -11,12 +12,11 @@ describe('User Reducer: ', () => {
     })
   })
 
-  it('RECEIVED_ACCESS_TOKEN should log in', () => {
+  it('#receiveAccessToken() should log in', () => {
     const accessToken = 'af13rfjdsfaf'
-    const state = user(undefined, {
-      type: types.RECEIVED_ACCESS_TOKEN,
-      accessToken
-    })
+    const state = user(
+      undefined, ActionBuilders.receiveAccessToken(accessToken)
+    )
 
     expect(state).toEqual({
       isLoggedIn: true,
@@ -32,9 +32,10 @@ describe('User Reducer: ', () => {
       accessToken: 'asdfdsfd'
     }
 
-    const newState = user(loggedInState, {
-      type: types.INVALIDATE_USER_SESSION
-    })
+    const newState = user(
+      loggedInState,
+      ActionBuilders.invalidateUserSesssion()
+    )
 
     expect(newState).toEqual({
       isLoggedIn: false,
@@ -53,10 +54,10 @@ describe('User Reducer: ', () => {
       accessToken: 'asdfdsfd'
     }
 
-    const state = user(loggedInState, {
-      type: types.RECEIVED_USER_PROFILE,
-      profile
-    })
+    const state = user(
+      loggedInState,
+      ActionBuilders.receiveUserProfile(profile)
+    )
 
     expect(state).toEqual({
       isLoggedIn: true,

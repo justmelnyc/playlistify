@@ -8,23 +8,6 @@ const initialState = {
 
 export default function auth(state = initialState, action) {
   switch (action.type) {
-    //remove
-    case types.REMOVE_ACCESS_TOKEN:
-      return Object.assign({}, state, {
-        accessToken: action.accessToken,
-        error: action.error
-      })
-    
-    // remove
-    case types.RECEIVE_ACCESS_TOKEN: 
-      return Object.assign({}, state, {
-        accessToken: action.accessToken,
-      })
-
-    /**
-     * 
-     * REFACTORED BELOW
-     * */ 
 
     case types.RECEIVED_ACCESS_TOKEN:
       return Object.assign({}, state, {
