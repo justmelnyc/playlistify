@@ -1,9 +1,9 @@
-import auth from './../../client/reducers/auth'
+import user from './../../client/reducers/user'
 import * as types from './../../client/constants/ActionTypes'
 
-describe('Auth Reducer: ', () => {
+describe('User Reducer: ', () => {
   it('should return correct initial state when no action type provided', () => {
-    const initialState = auth(undefined, {})
+    const initialState = user(undefined, {})
     expect(initialState).toEqual({
       isLoggedIn: false,
       profile: null,
@@ -13,7 +13,7 @@ describe('Auth Reducer: ', () => {
 
   it('RECEIVED_ACCESS_TOKEN should log in', () => {
     const accessToken = 'af13rfjdsfaf'
-    const state = auth(undefined, {
+    const state = user(undefined, {
       type: types.RECEIVED_ACCESS_TOKEN,
       accessToken
     })
@@ -32,7 +32,7 @@ describe('Auth Reducer: ', () => {
       accessToken: 'asdfdsfd'
     }
 
-    const newState = auth(loggedInState, {
+    const newState = user(loggedInState, {
       type: types.INVALIDATE_USER_SESSION
     })
 
@@ -53,7 +53,7 @@ describe('Auth Reducer: ', () => {
       accessToken: 'asdfdsfd'
     }
 
-    const state = auth(loggedInState, {
+    const state = user(loggedInState, {
       type: types.RECEIVED_USER_PROFILE,
       profile
     })

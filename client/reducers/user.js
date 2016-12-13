@@ -1,26 +1,47 @@
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
-  profile: {},
-  trackList: []
+  isLoggedIn: false,
+  accessToken: null,
+  profile: null
 }
 
-export default function user(state = initialState, action) {
+export default function auth(state = initialState, action) {
   switch (action.type) {
-
-    case types.RECEIVE_USER_PROFILE:
+    //remove
+    case types.REMOVE_ACCESS_TOKEN:
       return Object.assign({}, state, {
-        requestingUserProfile: false
+        accessToken: action.accessToken,
+        error: action.error
+      })
+    
+    // remove
+    case types.RECEIVE_ACCESS_TOKEN: 
+      return Object.assign({}, state, {
+        accessToken: action.accessToken,
       })
 
-    case types.RECEIVE_USER_PROFILE:
+    /**
+     * 
+     * REFACTORED BELOW
+     * */ 
+
+    case types.RECEIVED_ACCESS_TOKEN:
+      return Object.assign({}, state, {
+        isLoggedIn: true,
+        accessToken: action.accessToken
+      })
+
+    case types.INVALIDATE_USER_SESSION:
+      return Object.assign({}, state, {
+        isLoggedIn: false,
+        accessToken: null,
+        profile: null
+      })
+
+    case types.RECEIVED_USER_PROFILE:
       return Object.assign({}, state, {
         profile: action.profile
-      })
-
-    case types.UPDATE_USER_TRACK_LIST:
-      return Object.assign({}, state, {
-        trackList: action.userTrackList
       })
 
     default:
