@@ -5,11 +5,11 @@ import Table from './../components/Table'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  trackList: PropTypes.array.isRequired,
-  totalSongs: PropTypes.number.isRequired,
-  songs: PropTypes.object.isRequired,
-  albums: PropTypes.object.isRequired,
-  artists: PropTypes.object.isRequired
+  // trackList: PropTypes.array.isRequired,
+  // totalSongs: PropTypes.number.isRequired,
+  // songs: PropTypes.object.isRequired,
+  // albums: PropTypes.object.isRequired,
+  // artists: PropTypes.object.isRequired
 };
 
 class Viewer extends React.Component {
@@ -56,19 +56,18 @@ class Viewer extends React.Component {
   }
 
   generateSongsFromTrackList() {
-    const songs = this.currentPagination().map((songKey, i) => {
-      console.log(songKey)
-      const song = this.props.songs[songKey]
-      const album = this.props.albums[song.albumId]
-      const artist = this.props.artists[song.artistsId[0]]
+    const tracks = this.currentPagination().map((trackId, i) => {
+      const track = this.props.tracks[trackId]
+      const album = this.props.albums[track.album]
+      const artist = this.props.artists[track.artists[0]]
 
       return {
-        song: song,
+        track: track,
         album: album,
         artist: artist
       }
     })
-    return songs || [{}];
+    return tracks || [{}];
   }
 
   render() {
@@ -85,9 +84,7 @@ class Viewer extends React.Component {
 Viewer.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return Object.assign({}, state.musicData, {
-    trackList: state.user.trackList,
-  })
+  return Object.assign({}, state.entities)
 }
 
 export default connect(mapStateToProps)(Viewer);

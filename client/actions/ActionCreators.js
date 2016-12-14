@@ -25,3 +25,23 @@ export function receiveUserProfile(profile) {
     profile
   }
 }
+
+/**
+ * 
+ * Entity Action Builders
+ * 
+ */
+
+export function receiveApiEntities(res) {
+  const { albums, artists, tracks } = res.entities
+
+  return {
+    type: types.RECEIVED_DATA_ENTITIES,
+    data: {
+      albums,
+      artists,
+      tracks,
+      trackList: res.result.map((d) => {return d.track})
+    }
+  }
+}
