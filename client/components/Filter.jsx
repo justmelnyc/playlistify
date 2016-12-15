@@ -21,9 +21,9 @@ class Filter extends React.Component {
     const {filterKey} = this.props
 
     return (
-      <div className="Sorter-active">
-        <div className="Sorter-active-key">{filterKey}</div>
-        <div className="Sorter-active-slider">
+      <div className="Filter">
+        <div className="Filter-name">{filterKey}</div>
+        <div className="Filter-range">
           <Slider
             range allowCross={false}
             defaultValue={this.defaultSliderValue()}

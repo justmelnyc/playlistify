@@ -1,0 +1,5 @@
+.Viewer {
+    @include span-columns(8);
+    @include pad(); 
+    @extend %Pane;
+}

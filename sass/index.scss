@@ -4,10 +4,6 @@ $seafoam: #52ddc8;
 $radius: 5px;
 $spaceFromTop: 2rem;
 $gradient--pinkPurple: linear-gradient(90deg, $purp -50%, $pink 150%);
-html,
-body {
-  height: 100%;
-}
 
 body {
   background: $gradient--pinkPurple;
@@ -15,21 +11,25 @@ body {
 
 * {
   box-sizing: border-box;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  font-weight: 200;
 }
 
-.Container {
-  max-width: 1000px;
-  margin: auto;
-  margin-top: 150px;
-}
 
 // Layout
 @import 'nav';
 // Components
 @import 'input';
-@import 'avatar';
-@import 'songs';
+// @import 'avatar';
+// @import 'songs';
 @import 'table';
-@import 'sorter';
+// @import 'sorter';
+
+// NEW
+
+@import "bourbon/bourbon";
+@import "base/base";
+@import "neat/neat";
+
+@import 'var';
+@import 'layout';
+@import 'filter';
+@import 'viewer';

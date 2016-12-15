@@ -65,7 +65,8 @@ class Viewer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="Viewer">
+        <h2>543 Songs</h2>
         <Table data={this.generateFilteredTracks()} />
       </div>
     )

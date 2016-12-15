@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Viewer from './Viewer';
-import Filter from './Filter';
+import Filters from './Filters';
 
 import * as AuthedActions from './../actions/AuthedUser'
 
@@ -23,8 +23,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="Container" >
-        <Filter />
+      <div className="Container">
+        <Filters />
         <Viewer />
       </div>
     )
