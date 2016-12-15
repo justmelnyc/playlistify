@@ -24,4 +24,20 @@
       background: lightgrey;
     }
   }
+
+  &-active {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &-active-key {
+    width: 150px;
+    text-align: center;
+    height: 100%;
+  }
+
+  &-active-slider {
+    flex: 1;
+  }
 }

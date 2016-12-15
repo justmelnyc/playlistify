@@ -5,11 +5,8 @@ import Table from './../components/Table'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  // trackList: PropTypes.array.isRequired,
-  // totalSongs: PropTypes.number.isRequired,
-  // songs: PropTypes.object.isRequired,
-  // albums: PropTypes.object.isRequired,
-  // artists: PropTypes.object.isRequired
+  filter: PropTypes.object.isRequired,
+  trackList: PropTypes.array.isRequired
 };
 
 class Viewer extends React.Component {
@@ -21,6 +18,7 @@ class Viewer extends React.Component {
       pageInterval: 10
     }
   }
+
 
   currentPagination() {
     return this.props.trackList.slice(this.state.pageStart, this.state.pageEnd)
@@ -67,6 +65,7 @@ class Viewer extends React.Component {
         artist: artist
       }
     })
+
     return tracks || [{}];
   }
 
@@ -84,7 +83,10 @@ class Viewer extends React.Component {
 Viewer.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return Object.assign({}, state.entities)
+  return {
+    ...state.entities, 
+    filter: state.filter  
+  }
 }
 
 export default connect(mapStateToProps)(Viewer);

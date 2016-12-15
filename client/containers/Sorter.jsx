@@ -37,9 +37,7 @@ class Sorter extends React.Component {
     return (
       <div className="Sorter">
         <InactiveFilters filters={this.inactiveFilters()} onClick={this.handleInactiveClick.bind(this)} />
-
-        <ActiveFilters filters={this.activeFilters()} onClick={this.handleActiveClick.bind(this)} />
-
+        <ActiveFilters dispatch={this.props.dispatch} filters={this.props.filters} activeFilters={this.activeFilters()} onClick={this.handleActiveClick.bind(this)} />
       </div>
     )
   }

@@ -1,18 +1,31 @@
 import React, { PropTypes } from 'react'
 
+import Filter from './Filter'
+import * as ActionCreators from './../actions/ActionCreators'
+
 const propTypes = {
-  filters: PropTypes.arrayOf(String).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  activeFilters: PropTypes.arrayOf(String).isRequired,
+  filters: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired
 };
 
 class ActiveFilters extends React.Component {
 
+  onFilterChange(filter, min, max) {
+    this.props.dispatch(ActionCreators.updateFilter(filter, {
+      max: +(max / 100),
+      min: +(min / 100)
+    }))
+  }
+
   render() {
-    const {filters, onClick} = this.props
-    console.log(filters)
+    const {filters, onClick, activeFilters} = this.props
     return (
       <div className="Sorter-activeContainer">
-        {filters.map((filter, i) => <div key={i} onClick={() => {onClick(filter)}} className="Sorter-inactiveChip">{filter}</div>)}
+        {activeFilters.map((filter) => {
+          return <Filter key={filter} onChange={this.onFilterChange.bind(this)} filterKey={filter} filter={filters[filter]} />
+        })}
       </div>
     )
   }
@@ -20,4 +33,13 @@ class ActiveFilters extends React.Component {
 
 ActiveFilters.propTypes = propTypes;
 
-export default ActiveFilters 
+export default ActiveFilters
+
+
+/*
+    //     {
+    //         filters.map((filter, i) => {
+    //         return <div key={i} onClick={() => {onClick(filter)}} className="Sorter-inactiveChip">{filter}</div>
+    //     }
+    // }
+*/
