@@ -8,8 +8,44 @@
     height: calc(100vh - #{$navHeight + ($space * 2)});
 }
 
-%Pane {
-    overflow-y: scroll;
+.Pane {
+    $tobBarHeight: 50px;
+
     height: 100%;
     width: 100%;
+    overflow-y: scroll;
+    position: relative;
+    padding: 0;
+   
+
+    &--4 {
+        @include span-columns(4);
+        margin: 0;
+    }
+
+    &--8 {
+        @include span-columns(8);
+        margin: 0;
+    }
+
+    
+
+    &-topBar {
+        padding: 1rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: $tobBarHeight;
+        border-bottom: 1px solid lightgrey;
+        white-space: nowrap;
+        overflow-x: scroll;
+    }
+
+    &-content {
+        padding: 1rem;
+        margin-top: $tobBarHeight;
+        height: calc(100% - #{$tobBarHeight});
+        overflow-y: scroll;
+    }
 }

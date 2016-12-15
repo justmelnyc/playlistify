@@ -1,13 +1,10 @@
 .Filters {
-    @include span-columns(4);
-    @include pad(); 
-    @extend %Pane;
     border-right: 3px solid lightgrey;
 }
 
 .Filter {
     min-height: 58px;
-    padding: 2.1rem 0;
+    padding: 1rem 1.4rem;
     flex: 1;
     border-bottom: 1px solid #eee;
     display: flex;

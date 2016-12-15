@@ -60,10 +60,13 @@ class Filters extends React.Component {
 
   render() {
     return (
-      <div className="Filters">
-        <h2>3 Filters Selected</h2>
-        {this.generateFilters()}
-
+      <div className="Pane Pane--4 Filters">
+        <div className="Pane-topBar">
+          <h2>3 Filters Selected</h2>
+        </div>
+        <div className="Pane-content">
+          {this.generateFilters()}
+        </div>
       </div>
     )
   }
