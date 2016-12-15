@@ -19,9 +19,32 @@ class Viewer extends React.Component {
     }
   }
 
-
   currentPagination() {
-    return this.props.trackList.slice(this.state.pageStart, this.state.pageEnd)
+    const tracks = this.props.trackList.filter((trackId) => {
+      let trackIsInRange = true
+      const track = this.props.tracks[trackId]
+      const filterKeys = Object.keys(this.props.filter)
+
+      filterKeys.forEach((filterKey) => {
+        const min = this.props.filter[filterKey].min
+        const max = this.props.filter[filterKey].max
+        const isActive = this.props.filter[filterKey].active
+        const trackValue = track[filterKey]
+
+        if (isActive) {
+          if (trackValue < min || trackValue > max) {
+            trackIsInRange = false
+          }
+        }
+
+      })
+
+      return trackIsInRange
+    })
+
+    console.log(tracks)
+
+    return tracks.slice(this.state.pageStart, this.state.pageEnd)
   }
 
   nextPage() {
@@ -84,8 +107,8 @@ Viewer.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    ...state.entities, 
-    filter: state.filter  
+    ...state.entities,
+    filter: state.filter
   }
 }
 

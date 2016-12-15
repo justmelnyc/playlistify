@@ -10,7 +10,7 @@ const propTypes = {
   filters: PropTypes.object.isRequired
 };
 
-class Sorter extends React.Component {
+class Filter extends React.Component {
   constructor(props) {
     super(props)
   }

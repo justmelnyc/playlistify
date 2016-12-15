@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Viewer from './Viewer';
-import Sorter from './Sorter';
+import Filter from './Filter';
 
 import * as AuthedActions from './../actions/AuthedUser'
 
@@ -33,7 +33,7 @@ class App extends Component {
 
     return (
       <div className="Container" >
-        <Sorter />
+        <Filter />
         <Viewer />
       </div>
     )
