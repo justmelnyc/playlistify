@@ -53,8 +53,6 @@ describe('entities: ', () => {
       result: trackList
     }
 
-    console.log(entityStructure)
-
     const state = entities({}, ActionCreators.receiveApiEntities(entityStructure))
     console.log(state)
     expect(state).toEqual({
