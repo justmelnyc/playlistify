@@ -2,11 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Viewer from './Viewer';
-import { login } from './../actions/login'
+import Filter from './Filter';
+
+import * as AuthedActions from './../actions/AuthedUser'
+
+import ProfileBar from './../components/ProfileBar';
 
 
 const propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 class App extends Component {
@@ -16,12 +21,21 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(login())
+    dispatch(AuthedActions.initialLogin())
+  }
+
+  headerClickHandler() {
+    console.log('state')
   }
 
   render() {
+    const { musicData, songs, user } = this.props
+    const { profile } = user
+
+
     return (
       <div className="Container" >
+        <Filter />
         <Viewer />
       </div>
     )
@@ -31,7 +45,10 @@ class App extends Component {
 App.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return {}
+  return state
 }
 
 export default connect(mapStateToProps)(App);
+
+        // <ProfileBar profile={profile} />
+        // <Viewer />

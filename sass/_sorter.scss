@@ -1,0 +1,43 @@
+.Sorter {
+  background: white;
+
+  &-inactiveContainer {
+    height: 60px;
+    background: lightblue;
+    overflow: scroll;
+    padding: .5rem;
+    display: flex;
+  }
+
+  &-inactiveChip {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background: white;
+    border-radius: 5px;
+    margin-right: .4rem;
+    cursor: pointer;
+    padding: 1rem;
+
+    &:hover {
+      background: lightgrey;
+    }
+  }
+
+  &-active {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &-active-key {
+    width: 150px;
+    text-align: center;
+    height: 100%;
+  }
+
+  &-active-slider {
+    flex: 1;
+  }
+}

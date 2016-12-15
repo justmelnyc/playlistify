@@ -5,11 +5,8 @@ import Table from './../components/Table'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  trackList: PropTypes.array.isRequired,
-  totalSongs: PropTypes.number.isRequired,
-  songs: PropTypes.object.isRequired,
-  albums: PropTypes.object.isRequired,
-  artists: PropTypes.object.isRequired
+  filter: PropTypes.object.isRequired,
+  trackList: PropTypes.array.isRequired
 };
 
 class Viewer extends React.Component {
@@ -23,7 +20,31 @@ class Viewer extends React.Component {
   }
 
   currentPagination() {
-    return this.props.trackList.slice(this.state.pageStart, this.state.pageEnd)
+    const tracks = this.props.trackList.filter((trackId) => {
+      let trackIsInRange = true
+      const track = this.props.tracks[trackId]
+      const filterKeys = Object.keys(this.props.filter)
+
+      filterKeys.forEach((filterKey) => {
+        const min = this.props.filter[filterKey].min
+        const max = this.props.filter[filterKey].max
+        const isActive = this.props.filter[filterKey].active
+        const trackValue = track[filterKey]
+
+        if (isActive) {
+          if (trackValue < min || trackValue > max) {
+            trackIsInRange = false
+          }
+        }
+
+      })
+
+      return trackIsInRange
+    })
+
+    console.log(tracks)
+
+    return tracks.slice(this.state.pageStart, this.state.pageEnd)
   }
 
   nextPage() {
@@ -56,19 +77,19 @@ class Viewer extends React.Component {
   }
 
   generateSongsFromTrackList() {
-    const songs = this.currentPagination().map((songKey, i) => {
-      console.log(songKey)
-      const song = this.props.songs[songKey]
-      const album = this.props.albums[song.albumId]
-      const artist = this.props.artists[song.artistsId[0]]
+    const tracks = this.currentPagination().map((trackId, i) => {
+      const track = this.props.tracks[trackId]
+      const album = this.props.albums[track.album]
+      const artist = this.props.artists[track.artists[0]]
 
       return {
-        song: song,
+        track: track,
         album: album,
         artist: artist
       }
     })
-    return songs || [{}];
+
+    return tracks || [{}];
   }
 
   render() {
@@ -85,9 +106,10 @@ class Viewer extends React.Component {
 Viewer.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return Object.assign({}, state.musicData, {
-    trackList: state.user.trackList,
-  })
+  return {
+    ...state.entities,
+    filter: state.filter
+  }
 }
 
 export default connect(mapStateToProps)(Viewer);

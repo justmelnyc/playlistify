@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
-import auth from './auth'
 import user from './user'
-import musicData from './musicData'
+import entities from './entities'
+import filter from './filter'
 
 const rootReducer = combineReducers({
-  auth,
   user,
-  musicData
+  entities,
+  filter
 })
 
 export default rootReducer
