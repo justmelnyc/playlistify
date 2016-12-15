@@ -1,7 +1,4 @@
 import React, { PropTypes } from 'react'
-
-// require('rc-slider/assets/index.css');
-
 var Slider = require('rc-slider');
 
 const propTypes = {
@@ -15,14 +12,24 @@ class Filter extends React.Component {
     super(props)
   }
 
+  defaultSliderValue() {
+    const {filter} = this.props
+    return [(filter.min * 100), (filter.max * 100)]
+  }
+
   render() {
-    const {filter, filterKey} = this.props
+    const {filterKey} = this.props
 
     return (
       <div className="Sorter-active">
         <div className="Sorter-active-key">{filterKey}</div>
         <div className="Sorter-active-slider">
-          <Slider range allowCross={false} defaultValue={[(filter.min * 100), (filter.max * 100)]} onAfterChange={(val) => { this.props.onChange(filterKey, val[0], val[1]) } } />
+          <Slider
+            range allowCross={false}
+            defaultValue={this.defaultSliderValue()}
+            onAfterChange={(val) => {
+              this.props.onChange(filterKey, val[0], val[1])
+            } } />
         </div>
       </div>
     )
