@@ -1,3 +1,11 @@
+/**
+ * 
+ * TODO:
+ * be able to go to different pages by tabs
+ * have the tab have the classname .active if it is the curr page  
+ * 
+ */
+
 import React, { PropTypes } from 'react'
 
 import TableHeader from './TableHeader'
@@ -64,6 +72,27 @@ class Table extends React.Component {
     })
   }
 
+  goToPage(pageNum) {
+
+  }
+
+  generatePageTabs() {
+    const pageNums = Math.ceil(this.props.data.length / this.state.pageInterval)
+    let tabs = []
+    for (let i = 0; i <= pageNums; i++) {
+      tabs.push(
+        <li onClick={this.goToPage(i)} ><span>{i + 1}</span></li>
+      )
+    }
+
+    if (tabs.length > 5) {
+      tabs = tabs.slice(0, 4)
+      tabs.push(<li><span>...</span></li>)
+    }
+
+    return (<ul><li className="paginator">Prev</li>{tabs}<li className="paginator">Next</li></ul>)
+  }
+
   render() {
     return (
       <div className="Table">
@@ -88,21 +117,9 @@ class Table extends React.Component {
         <div className="Table-footer">
 
           <div className="Pagination">
-            <ul>
-              <li className="paginator">Prev</li>
-              <li><span>1</span></li>
-              <li><span>2</span></li>
-              <li><span>3</span></li>
-              <li><span>4</span></li>
-              <li><span>5</span></li>
-              <li><span>6</span></li>
-              <li><span>7</span></li>
-              <li className="paginator">Next</li>
-            </ul>
+            {this.generatePageTabs()}
           </div>
 
-
-          
         </div>
 
       </div>
