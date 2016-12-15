@@ -1,11 +1,13 @@
 .Container {
     $space: 20px;
-    @include outer-container;
+    margin: auto;
     background: white;
     margin-top: $navHeight + $space;
     border-radius: 5px;
     box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.2);
     height: calc(100vh - #{$navHeight + ($space * 2)});
+    display: flex;
+    overflow: hidden;
 }
 
 .Pane {
@@ -19,12 +21,12 @@
    
 
     &--4 {
-        @include span-columns(4);
+        width: 25%;
         margin: 0;
     }
 
     &--8 {
-        @include span-columns(8);
+        width: 75%;
         margin: 0;
     }
 
@@ -43,7 +45,6 @@
     }
 
     &-content {
-        padding: 1rem;
         margin-top: $tobBarHeight;
         height: calc(100% - #{$tobBarHeight});
         overflow-y: scroll;
