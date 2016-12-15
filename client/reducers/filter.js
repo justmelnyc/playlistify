@@ -3,7 +3,6 @@ import { combineReducers } from 'redux'
 
 export function generateFilterReducer(filterName) {
   const initialState = {
-    active: false,
     min: 0,
     max: 1
   }

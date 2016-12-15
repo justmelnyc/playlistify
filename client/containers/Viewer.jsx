@@ -55,9 +55,8 @@ class Viewer extends React.Component {
       const currFilter = filter[filterKey]
       const min = currFilter.min
       const max = currFilter.max
-      const isActive = currFilter.active
       const trackValue = track[filterKey]
-      if (isActive && trackValue < min || trackValue > max) { keepTrack = false }
+      if (trackValue < min || trackValue > max) { keepTrack = false }
     })
 
     return keepTrack

@@ -53,20 +53,13 @@ export function receiveApiEntities(res) {
  * 
  */
 
-const initialActivedValue = {
-  active: true,
-  min: 0,
-  max: 1
-}
-
-const initialDeactivedValue = {
-  active: false,
+const initialValue = {
   min: 0,
   max: 1
 }
 
 export function updateFilter(filterName, data) {
-  const mergedData = Object.assign({}, initialActivedValue, data)
+  const mergedData = Object.assign({}, initialValue, data)
 
   return {
     type: types.APPLY_FILTER(filterName),
@@ -74,10 +67,6 @@ export function updateFilter(filterName, data) {
   }
 }
 
-export function activateFilter(filterName) {
-  return updateFilter(filterName, initialActivedValue)
-}
-
 export function deactivateFilter(filterName) {
-  return updateFilter(filterName, initialDeactivedValue)
+  return updateFilter(filterName, initialValue)
 }
