@@ -9,7 +9,6 @@ export const getTrackData = () => {
     const accessToken = getState().user.accessToken
 
     paginateTrackItems(accessToken).then((tracks) => {
-      console.log(tracks)
       dispatch(ActionCreators.receiveApiEntities(tracks))
     })
   }

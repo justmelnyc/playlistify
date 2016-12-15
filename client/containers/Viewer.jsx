@@ -6,7 +6,8 @@ import Table from './../components/Table'
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
   filter: PropTypes.object.isRequired,
-  trackList: PropTypes.array.isRequired
+  trackList: PropTypes.array.isRequired,
+  tracks: PropTypes.object.isRequired
 };
 
 class Viewer extends React.Component {
@@ -19,65 +20,8 @@ class Viewer extends React.Component {
     }
   }
 
-  currentPagination() {
-    const tracks = this.props.trackList.filter((trackId) => {
-      let trackIsInRange = true
-      const track = this.props.tracks[trackId]
-      const filterKeys = Object.keys(this.props.filter)
-
-      filterKeys.forEach((filterKey) => {
-        const min = this.props.filter[filterKey].min
-        const max = this.props.filter[filterKey].max
-        const isActive = this.props.filter[filterKey].active
-        const trackValue = track[filterKey]
-
-        if (isActive) {
-          if (trackValue < min || trackValue > max) {
-            trackIsInRange = false
-          }
-        }
-
-      })
-
-      return trackIsInRange
-    })
-
-    console.log(tracks)
-
-    return tracks.slice(this.state.pageStart, this.state.pageEnd)
-  }
-
-  nextPage() {
-    this.setState((prevState) => {
-      const pageStart = prevState.pageEnd
-      const pageEnd = pageStart + this.state.pageInterval
-
-      if (pageEnd <= this.props.totalSongs) {
-        return {
-          pageStart: pageStart,
-          pageEnd: pageEnd,
-        }
-      }
-    })
-  }
-
-  prevPage() {
-    this.setState((prevState) => {
-      const pageEnd = prevState.pageStart
-      const pageStart = prevState.pageStart - this.state.pageInterval
-
-      if (pageStart >= 0) {
-        return {
-          pageStart: pageStart,
-          pageEnd: pageEnd,
-        }
-      }
-
-    })
-  }
-
-  generateSongsFromTrackList() {
-    const tracks = this.currentPagination().map((trackId, i) => {
+  generateFilteredTracks() {
+    const tracks = this.getFilteredListOfIds().map((trackId, i) => {
       const track = this.props.tracks[trackId]
       const album = this.props.albums[track.album]
       const artist = this.props.artists[track.artists[0]]
@@ -92,12 +36,37 @@ class Viewer extends React.Component {
     return tracks || [{}];
   }
 
+  getFilteredListOfIds() {
+    const { trackList } = this.props
+    return trackList.filter((id) => { return this.filterTracks(id) })
+  }
+
+  filterTracks(trackId) {
+    const { trackList, filter, tracks } = this.props
+    const track = tracks[trackId]
+    return this.isTrackInFilteredRange(track)
+  }
+
+  isTrackInFilteredRange(track) {
+    const { filter } = this.props
+    let keepTrack = true
+
+    Object.keys(filter).forEach((filterKey) => {
+      const currFilter = filter[filterKey]
+      const min = currFilter.min
+      const max = currFilter.max
+      const isActive = currFilter.active
+      const trackValue = track[filterKey]
+      if (isActive && trackValue < min || trackValue > max) { keepTrack = false }
+    })
+
+    return keepTrack
+  }
+
   render() {
     return (
       <div>
-        <Table data={this.generateSongsFromTrackList()} />
-        <button disabled={this.state.pageStart === 0} onClick={this.prevPage.bind(this)}>prev</button>
-        <button disabled={this.state.pageEnd >= this.props.totalSongs} onClick={this.nextPage.bind(this)}>next</button>
+        <Table data={this.generateFilteredTracks()} />
       </div>
     )
   }

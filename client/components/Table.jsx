@@ -14,6 +14,11 @@ const propTypes = {
 class Table extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      pageStart: 0,
+      pageEnd: 10,
+      pageInterval: 10
+    }
   }
 
   buildTableItems(datum) {
@@ -22,7 +27,41 @@ class Table extends React.Component {
   }
 
   getKeys() {
-    return this.props.data[0] ? Object.keys(this.props.data[0]) : [] 
+    return this.props.data[0] ? Object.keys(this.props.data[0]) : []
+  }
+
+  currentPagination() {
+    const {data} = this.props
+    return data.slice(this.state.pageStart, this.state.pageEnd)
+  }
+
+  nextPage() {
+    this.setState((prevState) => {
+      const pageStart = prevState.pageEnd
+      const pageEnd = pageStart + this.state.pageInterval
+
+      if (pageEnd <= this.props.data.length) {
+        return {
+          pageStart: pageStart,
+          pageEnd: pageEnd,
+        }
+      }
+    })
+  }
+
+  prevPage() {
+    this.setState((prevState) => {
+      const pageEnd = prevState.pageStart
+      const pageStart = prevState.pageStart - this.state.pageInterval
+
+      if (pageStart >= 0) {
+        return {
+          pageStart: pageStart,
+          pageEnd: pageEnd,
+        }
+      }
+
+    })
   }
 
   render() {
@@ -30,16 +69,19 @@ class Table extends React.Component {
       <div>
         <TableHeader
           itemClickHandler={this.props.onHeaderClick}
-          cols={this.getKeys()} 
-          sort={this.props.sort}/>
+          cols={this.getKeys()}
+          sort={this.props.sort} />
 
-        {this.props.data.map((datum, i) => {
+        {this.currentPagination().map((datum, i) => {
           return (
             <div key={i} className="Table-row" >
               {this.buildTableItems(datum)}
             </div>
           )
         })}
+        {this.props.data.length}
+        <button disabled={this.state.pageStart === 0} onClick={this.prevPage.bind(this)}>prev</button>
+        <button disabled={this.state.pageEnd >= this.props.data.length}  onClick={this.nextPage.bind(this)}>next</button>
       </div>
     )
   }

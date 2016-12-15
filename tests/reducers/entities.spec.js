@@ -54,7 +54,6 @@ describe('entities: ', () => {
     }
 
     const state = entities({}, ActionCreators.receiveApiEntities(entityStructure))
-    console.log(state)
     expect(state).toEqual({
       trackList: trackListArray,
       albums: albums,

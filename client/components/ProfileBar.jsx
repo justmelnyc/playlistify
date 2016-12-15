@@ -11,7 +11,6 @@ class ProfileBar extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const profile = this.props.profile
     // const imageUrl = profile.images ? profile.images[0].url : null
     return (

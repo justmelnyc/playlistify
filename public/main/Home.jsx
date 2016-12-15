@@ -10,7 +10,6 @@ export class Home extends React.Component {
     const location = window.location.hash || null;
     if (location) {
       window.localStorage.setItem('access_token', location)
-      console.log(window.localStorage.getItem('access_token'))
     } else {
       browserHistory.push('/auth');
     }
