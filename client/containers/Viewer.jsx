@@ -67,7 +67,7 @@ class Viewer extends React.Component {
     return (
       <div className="Pane Pane--8 Viewer">
         <div className="Pane-topBar">
-          <h2>543 Songs</h2>
+          <h2>{this.generateFilteredTracks().length} Songs</h2>
         </div>
         <div className="Pane-content">
           <Table data={this.generateFilteredTracks()} />

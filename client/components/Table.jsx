@@ -79,7 +79,7 @@ class Table extends React.Component {
             </div>
           )
         })}
-        {this.props.data.length}
+        
         <button disabled={this.state.pageStart === 0} onClick={this.prevPage.bind(this)}>prev</button>
         <button disabled={this.state.pageEnd >= this.props.data.length}  onClick={this.nextPage.bind(this)}>next</button>
       </div>
