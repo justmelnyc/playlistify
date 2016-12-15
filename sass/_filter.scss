@@ -12,10 +12,26 @@
     justify-content: center;
 
     &-name {
-
+        margin-bottom: 0.5rem;
     }
 
     &-range {
-
+        position: relative;
+        &:before {
+            position: absolute;
+            content: 'Low';
+            left: 0;
+            top: 100%;
+            font-size: 8px;
+            color: lightgrey;
+        }
+        &:after {
+            position: absolute;
+            content: 'High';
+            right: 0;
+            top: 100%;
+            font-size: 8px;
+            color: lightgrey;
+        }
     }
 }
