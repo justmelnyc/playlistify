@@ -1,18 +1,27 @@
 import React, { PropTypes } from 'react'
 
 const propTypes = {
-  filters: PropTypes.arrayOf(String).isRequired,
+  filterKeys: PropTypes.arrayOf(String).isRequired,
   onClick: PropTypes.func.isRequired
 };
 
 class InactiveFilters extends React.Component {
 
+  generateInactiveFilters() {
+    const {filterKeys, onClick} = this.props
+    return filterKeys.map((filter, i) => {
+      return (
+        <div key={i} onClick={() => { onClick(filter) } } className="Sorter-inactiveChip">
+          {filter}
+        </div>
+      )
+    })
+  }
+
   render() {
-    const {filters, onClick} = this.props
-    console.log(filters)
     return (
       <div className="Sorter-inactiveContainer">
-        {filters.map((filter, i) => <div key={i} onClick={() => {onClick(filter)}} className="Sorter-inactiveChip">{filter}</div>)}
+        {this.generateInactiveFilters()}
       </div>
     )
   }

@@ -29,15 +29,16 @@ export const RECEIVED_DATA_ENTITIES = 'RECEIVED_DATA_ENTITIES'
 export const FILTER_OPTIONS = [
   'danceability',
   'energy',
-  'loudness',
   'speechiness',
   'acousticness',
   'instrumentalness',
   'liveness',
   'valence',
-  'tempo',
-  'time_signature'
 ]
+
+  // 'loudness'
+  // 'time_signature'
+  // 'tempo',
 
 export const APPLY_FILTER = (filterName) => {
   if (FILTER_OPTIONS.indexOf(filterName) < 0) {
