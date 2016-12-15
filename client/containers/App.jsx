@@ -6,12 +6,9 @@ import Filter from './Filter';
 
 import * as AuthedActions from './../actions/AuthedUser'
 
-import ProfileBar from './../components/ProfileBar';
-
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
 };
 
 class App extends Component {
@@ -24,15 +21,7 @@ class App extends Component {
     dispatch(AuthedActions.initialLogin())
   }
 
-  headerClickHandler() {
-    console.log('state')
-  }
-
   render() {
-    const { musicData, songs, user } = this.props
-    const { profile } = user
-
-
     return (
       <div className="Container" >
         <Filter />
@@ -45,10 +34,7 @@ class App extends Component {
 App.propTypes = propTypes;
 
 function mapStateToProps(state) {
-  return state
+  return {}
 }
 
 export default connect(mapStateToProps)(App);
-
-        // <ProfileBar profile={profile} />
-        // <Viewer />
