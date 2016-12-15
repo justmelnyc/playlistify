@@ -33,6 +33,7 @@ class App extends Component {
 
     return (
       <div className="Container" >
+        <Sorter />
         <Viewer />
       </div>
     )

@@ -1,7 +1,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux';
 
+import * as ActionCreators from './../actions/ActionCreators'
+import InactiveFilters from './../components/InactiveFilters'
+import ActiveFilters from './../components/ActiveFilters'
+
 const propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  filters: PropTypes.object.isRequired
 };
 
 class Sorter extends React.Component {
@@ -9,12 +15,31 @@ class Sorter extends React.Component {
     super(props)
   }
 
+  inactiveFilters() {
+    const { filters } = this.props
+    return Object.keys(filters).filter((key) => { return !this.props.filters[key].active })
+  }
+
+  activeFilters() {
+    const { filters } = this.props
+    return Object.keys(filters).filter((key) => { return this.props.filters[key].active })
+  }
+
+  handleInactiveClick(filter) {
+    this.props.dispatch(ActionCreators.activateFilter(filter))
+  }
+
+  handleActiveClick(filter) {
+    this.props.dispatch(ActionCreators.deactivateFilter(filter))
+  }
+
   render() {
     return (
-      <div className="Songs-header Song">
-        <div className="Song-song">Song</div>
-        <div className="Song-artist">Artist</div>
-        <div className="Song-album">Album</div>
+      <div className="Sorter">
+        <InactiveFilters filters={this.inactiveFilters()} onClick={this.handleInactiveClick.bind(this)} />
+
+        <ActiveFilters filters={this.activeFilters()} onClick={this.handleActiveClick.bind(this)} />
+
       </div>
     )
   }
@@ -24,7 +49,7 @@ Sorter.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-
+    filters: state.filter
   }
 }
 
