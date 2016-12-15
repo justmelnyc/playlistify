@@ -14,11 +14,6 @@ body {
 }
 
 
-// Layout
-@import 'nav';
-// Components
-@import 'input';
-@import 'table';
 
 // NEW
 
@@ -30,6 +25,12 @@ body {
 @import 'layout';
 @import 'filter';
 @import 'viewer';
+
+// Layout
+@import 'nav';
+// Components
+@import 'input';
+@import 'table';
 
 body,
 html {

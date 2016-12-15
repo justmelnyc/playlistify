@@ -10,8 +10,8 @@
     overflow: hidden;
 }
 
+$paneTobBarHeight: 50px;
 .Pane {
-    $tobBarHeight: 50px;
 
     height: 100%;
     width: 100%;
@@ -38,15 +38,15 @@
         left: 0;
         right: 0;
         top: 0;
-        height: $tobBarHeight;
+        height: $paneTobBarHeight;
         border-bottom: 1px solid lightgrey;
         white-space: nowrap;
         overflow-x: scroll;
     }
 
     &-content {
-        margin-top: $tobBarHeight;
-        height: calc(100% - #{$tobBarHeight});
+        margin-top: $paneTobBarHeight;
+        height: calc(100% - #{$paneTobBarHeight});
         overflow-y: scroll;
     }
 }

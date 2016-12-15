@@ -16,8 +16,8 @@ class Table extends React.Component {
     super(props)
     this.state = {
       pageStart: 0,
-      pageEnd: 10,
-      pageInterval: 10
+      pageEnd: 20,
+      pageInterval: 20
     }
   }
 
@@ -66,22 +66,45 @@ class Table extends React.Component {
 
   render() {
     return (
-      <div>
-        <TableHeader
-          itemClickHandler={this.props.onHeaderClick}
-          cols={this.getKeys()}
-          sort={this.props.sort} />
+      <div className="Table">
 
-        {this.currentPagination().map((datum, i) => {
-          return (
-            <div key={i} className="Table-row" >
-              {this.buildTableItems(datum)}
-            </div>
-          )
-        })}
-        
-        <button disabled={this.state.pageStart === 0} onClick={this.prevPage.bind(this)}>prev</button>
-        <button disabled={this.state.pageEnd >= this.props.data.length}  onClick={this.nextPage.bind(this)}>next</button>
+        <div className="Table-header">
+          <TableHeader
+            itemClickHandler={this.props.onHeaderClick}
+            cols={this.getKeys()}
+            sort={this.props.sort} />
+        </div>
+
+        <div className="Table-items">
+          {this.currentPagination().map((datum, i) => {
+            return (
+              <div key={i} className="Table-row" >
+                {this.buildTableItems(datum)}
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="Table-footer">
+
+          <div className="Pagination">
+            <ul>
+              <li className="paginator">Prev</li>
+              <li><span>1</span></li>
+              <li><span>2</span></li>
+              <li><span>3</span></li>
+              <li><span>4</span></li>
+              <li><span>5</span></li>
+              <li><span>6</span></li>
+              <li><span>7</span></li>
+              <li className="paginator">Next</li>
+            </ul>
+          </div>
+
+
+          
+        </div>
+
       </div>
     )
   }
