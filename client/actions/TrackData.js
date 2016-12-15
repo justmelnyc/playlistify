@@ -26,15 +26,15 @@ function paginateTrackItems(accessToken, url = API.trackUrl, items = []) {
   }
 
   // KEEP THIS JUST FOR DEV TO NOT BLOW UP SPOTIFY SERVERS
-  // if (items.length > 140) {
-  //   // NEEDS TO BE SAME AS if (!URL)
-  //   const normalizedData = normalizeTrackArray(items)
-  //   const trackIds = normalizedData.result.map((item) => {
-  //     return item.track
-  //   })
+  if (items.length > 140) {
+    // NEEDS TO BE SAME AS if (!URL)
+    const normalizedData = normalizeTrackArray(items)
+    const trackIds = normalizedData.result.map((item) => {
+      return item.track
+    })
 
-  //   return paginateTrackAudioAnalysis(accessToken, normalizedData, trackIds)
-  // }
+    return paginateTrackAudioAnalysis(accessToken, normalizedData, trackIds)
+  }
 
   return fetch(url, API.GETRequest(accessToken))
     .then(API.parseJSON)

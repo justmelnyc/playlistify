@@ -15,12 +15,12 @@ class Filter extends React.Component {
     super(props)
   }
 
-  inactiveFilters() {
+  inactiveFilterKeys() {
     const { filters } = this.props
     return Object.keys(filters).filter((key) => { return !this.props.filters[key].active })
   }
 
-  activeFilters() {
+  activeFilterKeys() {
     const { filters } = this.props
     return Object.keys(filters).filter((key) => { return this.props.filters[key].active })
   }
@@ -36,14 +36,14 @@ class Filter extends React.Component {
   render() {
     return (
       <div className="Sorter">
-        <InactiveFilters filters={this.inactiveFilters()} onClick={this.handleInactiveClick.bind(this)} />
-        <ActiveFilters dispatch={this.props.dispatch} filters={this.props.filters} activeFilters={this.activeFilters()} onClick={this.handleActiveClick.bind(this)} />
+        <InactiveFilters filters={this.inactiveFilterKeys()} onClick={this.handleInactiveClick.bind(this)} />
+        <ActiveFilters dispatch={this.props.dispatch} filters={this.props.filters} filterKeys={this.activeFilterKeys()} onClick={this.handleActiveClick.bind(this)} />
       </div>
     )
   }
 }
 
-Sorter.propTypes = propTypes;
+Filter.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
@@ -51,4 +51,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Sorter);
+export default connect(mapStateToProps)(Filter);
