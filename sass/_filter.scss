@@ -13,6 +13,12 @@
 
     &-name {
         margin-bottom: 0.5rem;
+        position: relative;
+        display: flex;
+
+        span {
+            padding-right: 1rem;
+        }
     }
 
     &-range {
@@ -33,5 +39,12 @@
             font-size: 8px;
             color: lightgrey;
         }
+    }
+
+    &-reset {
+        padding: 0.4rem 0.9rem;
+        font-size: 10px;
+        border-radius: 24px;
+        
     }
 }

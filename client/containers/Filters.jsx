@@ -58,11 +58,23 @@ class Filters extends React.Component {
     this.props.dispatch(ActionCreators.deactivateFilter(filter))
   }
 
+  getCountOfFiltersActive() {
+    const { filters } = this.props
+    let count = 0
+    Object.keys(filters).forEach((filterKey) => {
+      const filter = filters[filterKey]
+      if (filter.min !== 0 || filter.max !== 1) {
+        count++
+      }
+    })
+    return count
+  }
+
   render() {
     return (
       <div className="Pane Pane--4 Filters">
         <div className="Pane-topBar">
-          <h2>3 Filters Selected</h2>
+          <h2>{this.getCountOfFiltersActive()} Active Filter</h2>
         </div>
         <div className="Pane-content">
           {this.generateFilters()}
