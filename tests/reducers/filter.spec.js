@@ -16,9 +16,12 @@ describe('filters: ', () => {
   })
 
   const randomInitialState = () => {
-    const state = {}
+    const state = {
+      filteredTrackList: [],
+      filterOptions: {}
+    }
     types.FILTER_OPTIONS.forEach((key) => {
-      state[key] = {
+      state.filterOptions[key] = {
         min: Math.random(),
         max: Math.random()
       }

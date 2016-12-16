@@ -5,7 +5,6 @@ import Table from './../components/Table'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  filter: PropTypes.object.isRequired,
   trackList: PropTypes.array.isRequired,
   tracks: PropTypes.object.isRequired,
   albums: PropTypes.object.isRequired,

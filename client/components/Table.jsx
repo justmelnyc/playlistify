@@ -81,7 +81,7 @@ class Table extends React.Component {
     let tabs = []
     for (let i = 0; i <= pageNums; i++) {
       tabs.push(
-        <li onClick={this.goToPage(i)} ><span>{i + 1}</span></li>
+        <li key={i} onClick={this.goToPage(i)} ><span>{i + 1}</span></li>
       )
     }
 
