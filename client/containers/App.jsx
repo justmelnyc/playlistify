@@ -5,7 +5,7 @@ import Viewer from './Viewer';
 import Filters from './Filters';
 
 import * as AuthedActions from './../actions/AuthedUser'
-
+import { createPlaylist } from './../actions/CreatePlaylist'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -21,10 +21,16 @@ class App extends Component {
     dispatch(AuthedActions.initialLogin())
   }
 
+  createPlaylist() {
+    this.props.dispatch(createPlaylist('MAKE A DEFAULT NAME'))
+  }
+
   render() {
     return (
       <div className="Container">
-        <div className="Nav"></div>
+        <div className="Nav">
+          <button onClick={this.createPlaylist.bind(this)}>Create Playlist</button>
+        </div>
         <Filters />
         <Viewer />
       </div>

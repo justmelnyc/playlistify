@@ -77,3 +77,49 @@ export function setFilteredTrackList(filteredTrackList) {
     data: filteredTrackList
   }
 }
+
+/**
+ * 
+ * Playlist Action Builders
+ * 
+ */
+
+export function createPlaylist(name) {
+  return {
+    type: types.PLAYLIST_CREATION_INITIATED,
+    data: {
+      playlistName: name,
+      creatingPlaylist: true
+    }
+  }
+}
+
+export function playlistCreated(res) {
+  const id = res.id
+  const url = res.external_urls.spotify
+
+  return {
+    type: types.PLAYLIST_CREATION_COMPLETED,
+    data: {
+      playlistName: null,
+      playlistId: id,
+      playlistUrl: url
+    }
+  }
+}
+
+export function addingTracksToPlaylist() {
+  return {
+    type: types.ADDING_TRACKS_TO_PLAYLIST_INITIATED,
+    data: {}
+  }
+}
+
+export function tracksAddedToPlaylist() {
+  return {
+    type: types.ADDING_TRACKS_TO_PLAYLIST_COMPLETED,
+    data: {
+      creatingPlaylist: false,
+    }
+  }
+}
