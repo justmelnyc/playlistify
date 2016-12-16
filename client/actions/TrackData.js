@@ -10,6 +10,7 @@ export const getTrackData = () => {
 
     paginateTrackItems(accessToken).then((tracks) => {
       dispatch(ActionCreators.receiveApiEntities(tracks))
+      dispatch(ActionCreators.setFilteredTrackList(tracks.result))
     })
   }
 }

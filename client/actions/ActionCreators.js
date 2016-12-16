@@ -70,3 +70,10 @@ export function updateFilter(filterName, data) {
 export function deactivateFilter(filterName) {
   return updateFilter(filterName, initialValue)
 }
+
+export function setFilteredTrackList(filteredTrackList) {
+  return {
+    type: types.UPDATE_FILTERED_TRACK_LIST,
+    data: filteredTrackList
+  }
+}

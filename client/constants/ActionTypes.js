@@ -26,6 +26,8 @@ export const RECEIVED_DATA_ENTITIES = 'RECEIVED_DATA_ENTITIES'
  * 
  */
 
+export const UPDATE_FILTERED_TRACK_LIST = 'UPDATE_FILTERED_TRACK_LIST'
+
 export const FILTER_OPTIONS = [
   'danceability',
   'energy',
@@ -35,10 +37,6 @@ export const FILTER_OPTIONS = [
   'liveness',
   'valence',
 ]
-
-  // 'loudness'
-  // 'time_signature'
-  // 'tempo',
 
 export const APPLY_FILTER = (filterName) => {
   if (FILTER_OPTIONS.indexOf(filterName) < 0) {

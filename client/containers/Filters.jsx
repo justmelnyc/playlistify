@@ -7,7 +7,11 @@ import Filter from './../components/Filter'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  filters: PropTypes.object.isRequired
+  filters: PropTypes.object.isRequired,
+  trackList: PropTypes.array.isRequired,
+  tracks: PropTypes.object.isRequired,
+  artists: PropTypes.object.isRequired,
+  albums: PropTypes.object.isRequired
 };
 
 class Filters extends React.Component {
@@ -16,12 +20,44 @@ class Filters extends React.Component {
   }
 
   onFilterChange(filter, min, max) {
+    const { dispatch } = this.props
     // / 100 to normalize the data (the slider is on a 0 - 100 scale)
-    this.props.dispatch(ActionCreators.updateFilter(filter, {
+    dispatch(ActionCreators.updateFilter(filter, {
       max: +(max / 100),
       min: +(min / 100)
     }))
+
+    dispatch(ActionCreators.setFilteredTrackList(
+      this.getListOfFilteredOutTracks()
+    ))
   }
+
+  getListOfFilteredOutTracks() {
+    const { trackList } = this.props
+    return trackList.filter((id) => {
+      return this.trackIsNotFilteredOut(id)
+    })
+  }
+
+  trackIsNotFilteredOut(trackId) {
+    const { tracks, filters } = this.props
+    const track = tracks[trackId]
+    let keepTrack = true
+
+    Object.keys(filters).forEach((filterKey) => {
+      const currFilter = filters[filterKey]
+      const min = currFilter.min
+      const max = currFilter.max
+      const trackValue = track[filterKey]
+      if (trackValue < min || trackValue > max) { keepTrack = false }
+    })
+
+    return keepTrack
+  }
+
+
+
+
 
   generateFilters() {
     const {filters} = this.props
@@ -88,23 +124,9 @@ Filters.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
+    ...state.entities,
     filters: state.filter
   }
 }
 
 export default connect(mapStateToProps)(Filters);
-
-
-/*
-        <InactiveFilters
-          filterKeys={this.inactiveFilterKeys()}
-          onClick={this.handleInactiveClick.bind(this)} />
-
-        <ActiveFilters
-          dispatch={this.props.dispatch}
-          filters={this.props.filters}
-          filterKeys={this.activeFilterKeys()}
-          onClick={this.handleActiveClick.bind(this)} />
-
-
-*/

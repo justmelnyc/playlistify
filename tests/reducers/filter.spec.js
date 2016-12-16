@@ -3,9 +3,13 @@ import * as types from './../../client/constants/ActionTypes'
 import * as ActionCreators from './../../client/actions/ActionCreators'
 
 describe('filters: ', () => {
-  const initialState = {}
+  const initialState = {
+    filteredTrackList: [],
+    filterOptions: {}
+  }
+
   types.FILTER_OPTIONS.forEach((filter) => {
-    initialState[filter] = {
+    initialState.filterOptions[filter] = {
       min: 0,
       max: 1
     }
@@ -48,8 +52,13 @@ describe('filters: ', () => {
 
     types.FILTER_OPTIONS.forEach((type) => {
       const state = filter(randomInitialState(), ActionCreators.deactivateFilter(type))
-      expect(state[type]).toEqual(expectedValue)
+      expect(state.filterOptions[type]).toEqual(expectedValue)
     })
+  })
+
+  it('filtered track list should be there', () => {
+    const filteredList = '4324 3h3243 h hsdafdafh 134hjh'.split(' ')
+    filter(undefined, ActionCreators.setFilteredTrackList(filteredList))
   })
 
 })

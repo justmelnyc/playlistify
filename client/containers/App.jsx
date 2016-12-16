@@ -24,6 +24,7 @@ class App extends Component {
   render() {
     return (
       <div className="Container">
+        <div className="Nav"></div>
         <Filters />
         <Viewer />
       </div>

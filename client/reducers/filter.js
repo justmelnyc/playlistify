@@ -18,11 +18,27 @@ export function generateFilterReducer(filterName) {
   }
 }
 
-const filters = {}
+function filteredTrackList(state = [], action) {
+  switch (action.type) {
+    case types.UPDATE_FILTERED_TRACK_LIST:
+      return action.data.slice()
+  
+    default:
+     return state
+  }
+}
+
+const filterReducers = {}
+
 types.FILTER_OPTIONS.forEach((filter) => {
-  filters[filter] = generateFilterReducer(filter)
+  filterReducers[filter] = generateFilterReducer(filter)
 })
 
-const filter = combineReducers(filters)
+const filterOptions = combineReducers(filterReducers)
+
+const filter = combineReducers({
+    filteredTrackList: filteredTrackList,
+    filterOptions: filterOptions
+})
 
 export default filter

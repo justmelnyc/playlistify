@@ -23,14 +23,11 @@ body {
 
 @import 'var';
 @import 'layout';
+@import 'nav';
 @import 'filter';
 @import 'viewer';
-
-// Layout
-@import 'nav';
-// Components
-@import 'input';
 @import 'table';
+@import 'input';
 
 body,
 html {
