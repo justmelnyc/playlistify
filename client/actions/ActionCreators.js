@@ -1,25 +1,25 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../constants/ActionTypes'
 
 /**
- * 
+ *
  * User Action Builders
- * 
+ *
  */
 
-export function receiveAccessToken(accessToken) {
+export function receiveAccessToken (accessToken) {
   return {
     type: types.RECEIVED_ACCESS_TOKEN,
     accessToken
   }
 }
 
-export function invalidateUserSesssion() {
+export function invalidateUserSesssion () {
   return {
     type: types.INVALIDATE_USER_SESSION
   }
 }
 
-export function receiveUserProfile(profile) {
+export function receiveUserProfile (profile) {
   return {
     type: types.RECEIVED_USER_PROFILE,
     profile
@@ -27,12 +27,12 @@ export function receiveUserProfile(profile) {
 }
 
 /**
- * 
+ *
  * Entity Action Builders
- * 
+ *
  */
 
-export function receiveApiEntities(res) {
+export function receiveApiEntities (res) {
   const { albums, artists, tracks } = res.entities
 
   return {
@@ -46,11 +46,10 @@ export function receiveApiEntities(res) {
   }
 }
 
-
 /**
- * 
+ *
  * Filter Action Builders
- * 
+ *
  */
 
 const initialValue = {
@@ -58,7 +57,7 @@ const initialValue = {
   max: 1
 }
 
-export function updateFilter(filterName, data) {
+export function updateFilter (filterName, data) {
   const mergedData = Object.assign({}, initialValue, data)
 
   return {
@@ -67,11 +66,11 @@ export function updateFilter(filterName, data) {
   }
 }
 
-export function deactivateFilter(filterName) {
+export function deactivateFilter (filterName) {
   return updateFilter(filterName, initialValue)
 }
 
-export function setFilteredTrackList(filteredTrackList) {
+export function setFilteredTrackList (filteredTrackList) {
   return {
     type: types.UPDATE_FILTERED_TRACK_LIST,
     data: filteredTrackList
@@ -79,12 +78,12 @@ export function setFilteredTrackList(filteredTrackList) {
 }
 
 /**
- * 
+ *
  * Playlist Action Builders
- * 
+ *
  */
 
-export function createPlaylist(name) {
+export function createPlaylist (name) {
   return {
     type: types.PLAYLIST_CREATION_INITIATED,
     data: {
@@ -94,7 +93,7 @@ export function createPlaylist(name) {
   }
 }
 
-export function playlistCreated(res) {
+export function playlistCreated (res) {
   const id = res.id
   const url = res.external_urls.spotify
 
@@ -108,18 +107,18 @@ export function playlistCreated(res) {
   }
 }
 
-export function addingTracksToPlaylist() {
+export function addingTracksToPlaylist () {
   return {
     type: types.ADDING_TRACKS_TO_PLAYLIST_INITIATED,
     data: {}
   }
 }
 
-export function tracksAddedToPlaylist() {
+export function tracksAddedToPlaylist () {
   return {
     type: types.ADDING_TRACKS_TO_PLAYLIST_COMPLETED,
     data: {
-      creatingPlaylist: false,
+      creatingPlaylist: false
     }
   }
 }

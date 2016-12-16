@@ -6,7 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const loggerMiddleware = createLogger()
 
-export default function configureStore(preloadedState) {
+export default function configureStore (preloadedState) {
   return createStore(
     rootReducer,
     preloadedState,

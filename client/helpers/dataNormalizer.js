@@ -2,9 +2,8 @@ import {
   Schema,
   arrayOf,
   normalize
-} from 'normalizr';
+} from 'normalizr'
 
-const apiSchema = new Schema('api')
 const trackSchema = new Schema('tracks')
 const albumSchema = new Schema('albums')
 const artistSchema = new Schema('artists')
@@ -20,6 +19,6 @@ trackSchema.define({
  *
  */
 
-export function normalizeTrackArray(tracks) {
-  return normalize(tracks, arrayOf({track :trackSchema}))
+export function normalizeTrackArray (tracks) {
+  return normalize(tracks, arrayOf({ track: trackSchema }))
 }

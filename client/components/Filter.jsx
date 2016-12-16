@@ -1,26 +1,30 @@
 import React, { PropTypes } from 'react'
-var Slider = require('rc-slider');
+var Slider = require('rc-slider')
 
 const propTypes = {
   filter: PropTypes.object.isRequired,
   filterKey: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
-};
+}
 
 class Filter extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       val: [0, 100]
     }
+
+    this.resetFilter = this.resetFilter.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.updateFilter = this.updateFilter.bind(this)
   }
 
-  defaultSliderValue() {
+  defaultSliderValue () {
     const {filter} = this.props
     return [(filter.min * 100), (filter.max * 100)]
   }
 
-  resetFilter() {
+  resetFilter () {
     this.setState({
       val: [0, 100]
     }, () => {
@@ -28,7 +32,7 @@ class Filter extends React.Component {
     })
   }
 
-  handleChange(val) {
+  handleChange (val) {
     if (val[0] < val[1] - 1) {
       this.setState({
         val: val
@@ -36,35 +40,35 @@ class Filter extends React.Component {
     }
   }
 
-  updateFilter() {
+  updateFilter () {
     const {filterKey} = this.props
     const {val} = this.state
 
     this.props.onChange(filterKey, val[0], val[1])
   }
 
-  render() {
+  render () {
     const {filterKey} = this.props
 
     return (
-      <div className="Filter">
-        <div className="Filter-name">
+      <div className='Filter'>
+        <div className='Filter-name'>
           <span>{filterKey}</span>
-          <button onClick={this.resetFilter.bind(this)} className="Filter-reset">Reset</button>
+          <button onClick={this.resetFilter} className='Filter-reset'>Reset</button>
         </div>
-        <div className="Filter-range">
+        <div className='Filter-range'>
           <Slider
             range allowCross={false}
             value={this.state.val}
             defaultValue={this.defaultSliderValue()}
-            onChange={this.handleChange.bind(this)}
-            onAfterChange={this.updateFilter.bind(this)} />
+            onChange={this.handleChange}
+            onAfterChange={this.updateFilter} />
         </div>
       </div>
     )
   }
 }
 
-Filter.propTypes = propTypes;
+Filter.propTypes = propTypes
 
-export default Filter 
+export default Filter

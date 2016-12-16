@@ -1,9 +1,9 @@
 /**
- * 
+ *
  * TODO:
  * be able to go to different pages by tabs
- * have the tab have the classname .active if it is the curr page  
- * 
+ * have the tab have the classname .active if it is the curr page
+ *
  */
 
 import React, { PropTypes } from 'react'
@@ -20,7 +20,7 @@ const propTypes = {
 }
 
 class Table extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       pageStart: 0,
@@ -29,21 +29,21 @@ class Table extends React.Component {
     }
   }
 
-  buildTableItems(datum) {
+  buildTableItems (datum) {
     const keys = Object.keys(datum)
-    return keys.map((key, i) => <div className="Table-item" key={key}>{datum[key].name}</div>)
+    return keys.map((key, i) => <div className='Table-item' key={key}>{datum[key].name}</div>)
   }
 
-  getKeys() {
+  getKeys () {
     return this.props.data[0] ? Object.keys(this.props.data[0]) : []
   }
 
-  currentPagination() {
+  currentPagination () {
     const {data} = this.props
     return data.slice(this.state.pageStart, this.state.pageEnd)
   }
 
-  nextPage() {
+  nextPage () {
     this.setState((prevState) => {
       const pageStart = prevState.pageEnd
       const pageEnd = pageStart + this.state.pageInterval
@@ -51,13 +51,13 @@ class Table extends React.Component {
       if (pageEnd <= this.props.data.length) {
         return {
           pageStart: pageStart,
-          pageEnd: pageEnd,
+          pageEnd: pageEnd
         }
       }
     })
   }
 
-  prevPage() {
+  prevPage () {
     this.setState((prevState) => {
       const pageEnd = prevState.pageStart
       const pageStart = prevState.pageStart - this.state.pageInterval
@@ -65,18 +65,17 @@ class Table extends React.Component {
       if (pageStart >= 0) {
         return {
           pageStart: pageStart,
-          pageEnd: pageEnd,
+          pageEnd: pageEnd
         }
       }
-
     })
   }
 
-  goToPage(pageNum) {
+  goToPage (pageNum) {
 
   }
 
-  generatePageTabs() {
+  generatePageTabs () {
     const pageNums = Math.ceil(this.props.data.length / this.state.pageInterval)
     let tabs = []
     for (let i = 0; i <= pageNums; i++) {
@@ -90,33 +89,33 @@ class Table extends React.Component {
       tabs.push(<li><span>...</span></li>)
     }
 
-    return (<ul><li className="paginator">Prev</li>{tabs}<li className="paginator">Next</li></ul>)
+    return (<ul><li className='paginator'>Prev</li>{tabs}<li className='paginator'>Next</li></ul>)
   }
 
-  render() {
+  render () {
     return (
-      <div className="Table">
+      <div className='Table'>
 
-        <div className="Table-header">
+        <div className='Table-header'>
           <TableHeader
             itemClickHandler={this.props.onHeaderClick}
             cols={this.getKeys()}
             sort={this.props.sort} />
         </div>
 
-        <div className="Table-items">
+        <div className='Table-items'>
           {this.currentPagination().map((datum, i) => {
             return (
-              <div key={i} className="Table-row" >
+              <div key={i} className='Table-row' >
                 {this.buildTableItems(datum)}
               </div>
             )
           })}
         </div>
 
-        <div className="Table-footer">
+        <div className='Table-footer'>
 
-          <div className="Pagination">
+          <div className='Pagination'>
             {this.generatePageTabs()}
           </div>
 
@@ -127,7 +126,6 @@ class Table extends React.Component {
   }
 }
 
-
-Table.propTypes = propTypes;
+Table.propTypes = propTypes
 
 export default Table

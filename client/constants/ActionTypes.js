@@ -1,8 +1,8 @@
 
 /**
- * 
+ *
  * AUTH RELATED
- * 
+ *
  */
 
 export const RECEIVED_ACCESS_TOKEN = 'RECEIVED_ACCESS_TOKEN'
@@ -12,18 +12,17 @@ export const RECEIVED_USER_PROFILE =
 'RECEIVED_USER_PROFILE'
 
 /**
- * 
+ *
  * ENTITY RELATED
- * 
+ *
  */
 
 export const RECEIVED_DATA_ENTITIES = 'RECEIVED_DATA_ENTITIES'
 
-
 /**
- * 
+ *
  * FILTER RELATED
- * 
+ *
  */
 
 export const UPDATE_FILTERED_TRACK_LIST = 'UPDATE_FILTERED_TRACK_LIST'
@@ -35,7 +34,7 @@ export const FILTER_OPTIONS = [
   'acousticness',
   'instrumentalness',
   'liveness',
-  'valence',
+  'valence'
 ]
 
 export const APPLY_FILTER = (filterName) => {
@@ -47,9 +46,9 @@ export const APPLY_FILTER = (filterName) => {
 }
 
 /**
- * 
+ *
  * PLAYLIST RELATED
- * 
+ *
  */
 
 export const PLAYLIST_CREATION_INITIATED = 'PLAYLIST_CREATION_INITIATED'

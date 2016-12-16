@@ -7,43 +7,40 @@ const propTypes = {
     key: PropTypes.string.isRequired,
     direction: PropTypes.string.isRequired
   })
-};
+}
 
 class TableHeader extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   /**
-	 * 
-	 * Returns the key and and either asc or desc
-	 * sort = {
-	 *  key: OBJECT KEY,
-	 *  direction: 'asc' | 'desc'
-	 * }
-	 * 
-	 */
+   *
+   * Returns the key and and either asc or desc
+   * sort = {
+   *  key: OBJECT KEY,
+   *  direction: 'asc' | 'desc'
+   * }
+   *
+   */
 
-  handleClick() {
+  handleClick () {
 
   }
 
-  getItemsClass(key) {
+  getItemsClass (key) {
     let newClass = 'Table-item'
 
     if (this.props.sort && this.props.sort.key === key) {
       newClass += ' ' + this.props.sort.direction
     }
 
-    return newClass;
+    return newClass
   }
 
-  render() {
+  render () {
     return (
-      <div className="Table-row Table-row--header">
-        {this.props.cols.map((col) => <div 
-          key={col} 
-          onClick={ () => this.props.itemClickHandler(col)} 
+      <div className='Table-row Table-row--header'>
+        {this.props.cols.map((col) => <div
+          key={col}
+          onClick={() => this.props.itemClickHandler(col)}
           className={this.getItemsClass(col)}>{col}</div>)}
       </div>
     )

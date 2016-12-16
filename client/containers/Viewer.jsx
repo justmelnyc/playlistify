@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 import Table from './../components/Table'
 
@@ -8,17 +8,15 @@ const propTypes = {
   trackList: PropTypes.array.isRequired,
   tracks: PropTypes.object.isRequired,
   albums: PropTypes.object.isRequired,
-  artists: PropTypes.object.isRequired
-};
+  artists: PropTypes.object.isRequired,
+  filteredTrackList: PropTypes.array.isRequired
+}
 
 class Viewer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
-  generateFilteredTracks() {
-    const { filteredTrackList , tracks, albums, artists } = this.props
-    
+  generateFilteredTracks () {
+    const { filteredTrackList, tracks, albums, artists } = this.props
+
     const filteredTracks = filteredTrackList.map((trackId, i) => {
       const track = tracks[trackId]
       const album = albums[track.album]
@@ -31,18 +29,18 @@ class Viewer extends React.Component {
       }
     })
 
-    return filteredTracks || [{}];
+    return filteredTracks || [{}]
   }
 
-  render() {
+  render () {
     const { filteredTrackList } = this.props
-    
+
     return (
-      <div className="Pane Pane--8 Viewer">
-        <div className="Pane-topBar">
+      <div className='Pane Pane--8 Viewer'>
+        <div className='Pane-topBar'>
           <h2>{filteredTrackList.length} Songs</h2>
         </div>
-        <div className="Pane-content">
+        <div className='Pane-content'>
           <Table data={this.generateFilteredTracks()} />
         </div>
       </div>
@@ -50,13 +48,13 @@ class Viewer extends React.Component {
   }
 }
 
-Viewer.propTypes = propTypes;
+Viewer.propTypes = propTypes
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     ...state.entities,
     filteredTrackList: state.filter.filteredTrackList
   }
 }
 
-export default connect(mapStateToProps)(Viewer);
+export default connect(mapStateToProps)(Viewer)

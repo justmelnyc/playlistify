@@ -1,24 +1,24 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../constants/ActionTypes'
 import { combineReducers } from 'redux'
 
-export function generateFilterReducer(filterName) {
+export function generateFilterReducer (filterName) {
   const initialState = {
     min: 0,
     max: 1
   }
 
-  return function filter(state = initialState, action) {
+  return function filter (state = initialState, action) {
     switch (action.type) {
       case types.APPLY_FILTER(filterName):
         return Object.assign({}, state, action.data)
 
       default:
-        return state;
+        return state
     }
   }
 }
 
-function filteredTrackList(state = [], action) {
+function filteredTrackList (state = [], action) {
   switch (action.type) {
     case types.UPDATE_FILTERED_TRACK_LIST:
       return action.data.slice()

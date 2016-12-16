@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isLoggedIn: false,
@@ -6,7 +6,7 @@ const initialState = {
   profile: null
 }
 
-export default function auth(state = initialState, action) {
+export default function auth (state = initialState, action) {
   switch (action.type) {
 
     case types.RECEIVED_ACCESS_TOKEN:

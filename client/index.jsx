@@ -1,12 +1,12 @@
 import 'whatwg-fetch'
-require('./../sass/index.scss');
+require('./../sass/index.scss')
 
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-import App from './containers/App';
+import App from './containers/App'
 import configureStore from './store/configureStore'
 
 const store = configureStore()
@@ -16,4 +16,4 @@ ReactDOM.render(
     <App />
   </Provider>,
   document.getElementById('root')
-);
+)

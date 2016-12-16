@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../constants/ActionTypes'
 
 const initialState = {
   creatingPlaylist: false,
@@ -8,7 +8,7 @@ const initialState = {
   addingTracks: false
 }
 
-export default function entities(state = initialState, action) {
+export default function entities (state = initialState, action) {
   switch (action.type) {
 
     case types.PLAYLIST_CREATION_COMPLETED:

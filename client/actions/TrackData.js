@@ -1,4 +1,4 @@
-import * as ActionCreators from './ActionCreators';
+import * as ActionCreators from './ActionCreators'
 import * as API from './../helpers/SpotifyApi'
 import {
   normalizeTrackArray
@@ -15,7 +15,7 @@ export const getTrackData = () => {
   }
 }
 
-function paginateTrackItems(accessToken, url = API.trackUrl, items = []) {
+function paginateTrackItems (accessToken, url = API.trackUrl, items = []) {
   if (!url) {
     const normalizedData = normalizeTrackArray(items)
     const trackIds = normalizedData.result.map((item) => {
@@ -43,11 +43,12 @@ function paginateTrackItems(accessToken, url = API.trackUrl, items = []) {
       return paginateTrackItems(accessToken, res.next, items)
     })
     .catch((e) => {
-      dispatch(ActionCreators.invalidateUserSesssion())
+      console.error(e)
+      // dispatch(ActionCreators.invalidateUserSesssion())
     })
 }
 
-function paginateTrackAudioAnalysis(accessToken, entities, trackIds) {
+function paginateTrackAudioAnalysis (accessToken, entities, trackIds) {
   if (trackIds.length <= 0) {
     return Promise.resolve(entities)
   }

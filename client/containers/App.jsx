@@ -1,35 +1,36 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-import Viewer from './Viewer';
-import Filters from './Filters';
+import Viewer from './Viewer'
+import Filters from './Filters'
 
 import * as AuthedActions from './../actions/AuthedUser'
 import { createPlaylist } from './../actions/CreatePlaylist'
 
 const propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+  dispatch: PropTypes.func.isRequired
+}
 
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
+    this.createPlaylist = this.createPlaylist.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { dispatch } = this.props
     dispatch(AuthedActions.initialLogin())
   }
 
-  createPlaylist() {
+  createPlaylist () {
     this.props.dispatch(createPlaylist('MAKE A DEFAULT NAME'))
   }
 
-  render() {
+  render () {
     return (
-      <div className="Container">
-        <div className="Nav">
-          <button onClick={this.createPlaylist.bind(this)}>Create Playlist</button>
+      <div className='Container'>
+        <div className='Nav'>
+          <button onClick={this.createPlaylist}>Create Playlist</button>
         </div>
         <Filters />
         <Viewer />
@@ -38,10 +39,10 @@ class App extends Component {
   }
 }
 
-App.propTypes = propTypes;
+App.propTypes = propTypes
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {}
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

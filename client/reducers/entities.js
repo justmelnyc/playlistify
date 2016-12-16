@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../constants/ActionTypes'
 
 const initialState = {
   trackList: [],
@@ -7,7 +7,7 @@ const initialState = {
   tracks: {}
 }
 
-export default function entities(state = initialState, action) {
+export default function entities (state = initialState, action) {
   switch (action.type) {
 
     case types.RECEIVED_DATA_ENTITIES:
