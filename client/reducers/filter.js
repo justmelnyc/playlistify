@@ -22,9 +22,9 @@ function filteredTrackList(state = [], action) {
   switch (action.type) {
     case types.UPDATE_FILTERED_TRACK_LIST:
       return action.data.slice()
-  
+
     default:
-     return state
+      return state
   }
 }
 
@@ -37,8 +37,8 @@ types.FILTER_OPTIONS.forEach((filter) => {
 const filterOptions = combineReducers(filterReducers)
 
 const filter = combineReducers({
-    filteredTrackList: filteredTrackList,
-    filterOptions: filterOptions
+  filteredTrackList: filteredTrackList,
+  filterOptions: filterOptions
 })
 
 export default filter

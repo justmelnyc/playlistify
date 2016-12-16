@@ -15,9 +15,9 @@ trackSchema.define({
 })
 
 /**
- * 
+ *
  * @Param {items} An Array of spotify tracks {track: {}}
- * 
+ *
  */
 
 export function normalizeTrackArray(tracks) {
