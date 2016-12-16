@@ -7,25 +7,23 @@ const propTypes = {
   dispatch: PropTypes.func.isRequired,
   filter: PropTypes.object.isRequired,
   trackList: PropTypes.array.isRequired,
-  tracks: PropTypes.object.isRequired
+  tracks: PropTypes.object.isRequired,
+  albums: PropTypes.object.isRequired,
+  artists: PropTypes.object.isRequired
 };
 
 class Viewer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      pageStart: 0,
-      pageEnd: 10,
-      pageInterval: 10
-    }
   }
 
   generateFilteredTracks() {
-    console.log(this.props.filteredTrackList)
-    const tracks = this.props.filteredTrackList.map((trackId, i) => {
-      const track = this.props.tracks[trackId]
-      const album = this.props.albums[track.album]
-      const artist = this.props.artists[track.artists[0]]
+    const { filteredTrackList , tracks, albums, artists } = this.props
+    
+    const filteredTracks = filteredTrackList.map((trackId, i) => {
+      const track = tracks[trackId]
+      const album = albums[track.album]
+      const artist = artists[track.artists[0]]
 
       return {
         track: track,
@@ -34,40 +32,16 @@ class Viewer extends React.Component {
       }
     })
 
-    return tracks || [{}];
-  }
-
-  getFilteredListOfIds() {
-    const { trackList } = this.props
-    return trackList.filter((id) => { return this.filterTracks(id) })
-  }
-
-  filterTracks(trackId) {
-    const { trackList, filter, tracks } = this.props
-    const track = tracks[trackId]
-    return this.isTrackInFilteredRange(track)
-  }
-
-  isTrackInFilteredRange(track) {
-    const { filter } = this.props
-    let keepTrack = true
-
-    Object.keys(filter).forEach((filterKey) => {
-      const currFilter = filter[filterKey]
-      const min = currFilter.min
-      const max = currFilter.max
-      const trackValue = track[filterKey]
-      if (trackValue < min || trackValue > max) { keepTrack = false }
-    })
-
-    return keepTrack
+    return filteredTracks || [{}];
   }
 
   render() {
+    const { filteredTrackList } = this.props
+    
     return (
       <div className="Pane Pane--8 Viewer">
         <div className="Pane-topBar">
-          <h2>{this.generateFilteredTracks().length} Songs</h2>
+          <h2>{filteredTrackList.length} Songs</h2>
         </div>
         <div className="Pane-content">
           <Table data={this.generateFilteredTracks()} />
@@ -82,7 +56,6 @@ Viewer.propTypes = propTypes;
 function mapStateToProps(state) {
   return {
     ...state.entities,
-    filter: state.filter,
     filteredTrackList: state.filter.filteredTrackList
   }
 }
