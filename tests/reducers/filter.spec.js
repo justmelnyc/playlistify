@@ -40,7 +40,7 @@ describe('filters: ', () => {
       }
 
       const state = filter(randomInitialState(), ActionCreators.updateFilter(type, newState))
-      expect(state[type]).toEqual(newState)
+      expect(state.filterOptions[type]).toEqual(newState)
     })
   })
 

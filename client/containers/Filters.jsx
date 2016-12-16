@@ -11,7 +11,10 @@ const propTypes = {
   trackList: PropTypes.array.isRequired,
   tracks: PropTypes.object.isRequired,
   artists: PropTypes.object.isRequired,
-  albums: PropTypes.object.isRequired
+  albums: PropTypes.object.isRequired,
+
+
+  filterOptions: PropTypes.object.isRequired
 };
 
 class Filters extends React.Component {
@@ -27,25 +30,34 @@ class Filters extends React.Component {
       min: +(min / 100)
     }))
 
+    console.log(this.getFilteredListOfIds().length)
+
     dispatch(ActionCreators.setFilteredTrackList(
-      this.getListOfFilteredOutTracks()
+      this.getFilteredListOfIds()
     ))
   }
 
-  getListOfFilteredOutTracks() {
+
+
+
+
+  getFilteredListOfIds() {
     const { trackList } = this.props
-    return trackList.filter((id) => {
-      return this.trackIsNotFilteredOut(id)
-    })
+    return trackList.filter((id) => { return this.filterTracks(id) })
   }
 
-  trackIsNotFilteredOut(trackId) {
-    const { tracks, filters } = this.props
+  filterTracks(trackId) {
+    const { trackList, tracks } = this.props
     const track = tracks[trackId]
+    return this.isTrackInFilteredRange(track)
+  }
+
+  isTrackInFilteredRange(track) {
+    const { filterOptions } = this.props
     let keepTrack = true
 
-    Object.keys(filters).forEach((filterKey) => {
-      const currFilter = filters[filterKey]
+    Object.keys(filterOptions).forEach((filterKey) => {
+      const currFilter = filterOptions[filterKey]
       const min = currFilter.min
       const max = currFilter.max
       const trackValue = track[filterKey]
@@ -59,12 +71,14 @@ class Filters extends React.Component {
 
 
 
+
+
   generateFilters() {
-    const {filters} = this.props
-    const filterKeys = Object.keys(filters)
+    const {filterOptions} = this.props
+    const filterKeys = Object.keys(filterOptions)
 
     return filterKeys.map((filterKey) => {
-      const filter = filters[filterKey]
+      const filter = filterOptions[filterKey]
       return (
         <Filter
           key={filterKey}
@@ -95,10 +109,10 @@ class Filters extends React.Component {
   }
 
   getCountOfFiltersActive() {
-    const { filters } = this.props
+    const { filterOptions } = this.props
     let count = 0
-    Object.keys(filters).forEach((filterKey) => {
-      const filter = filters[filterKey]
+    Object.keys(filterOptions).forEach((filterKey) => {
+      const filter = filterOptions[filterKey]
       if (filter.min !== 0 || filter.max !== 1) {
         count++
       }
@@ -125,7 +139,7 @@ Filters.propTypes = propTypes;
 function mapStateToProps(state) {
   return {
     ...state.entities,
-    filters: state.filter
+    filterOptions: state.filter.filterOptions
   }
 }
 

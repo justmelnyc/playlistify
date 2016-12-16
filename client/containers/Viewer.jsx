@@ -21,7 +21,8 @@ class Viewer extends React.Component {
   }
 
   generateFilteredTracks() {
-    const tracks = this.getFilteredListOfIds().map((trackId, i) => {
+    console.log(this.props.filteredTrackList)
+    const tracks = this.props.filteredTrackList.map((trackId, i) => {
       const track = this.props.tracks[trackId]
       const album = this.props.albums[track.album]
       const artist = this.props.artists[track.artists[0]]
@@ -81,7 +82,8 @@ Viewer.propTypes = propTypes;
 function mapStateToProps(state) {
   return {
     ...state.entities,
-    filter: state.filter
+    filter: state.filter,
+    filteredTrackList: state.filter.filteredTrackList
   }
 }
 
