@@ -1,4 +1,14 @@
 {
-  "extends": ["standard", "standard-react"],
-  "globals": { "fetch": false }
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  "globals": {
+    "fetch": false,
+    "describe": false,
+    "beforeEach": false,
+    "it": false,
+    "expect": false,
+    "jasmine": false
+  }
 }

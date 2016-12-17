@@ -39,7 +39,7 @@ describe('filters: ', () => {
     types.FILTER_OPTIONS.forEach((type) => {
       const newState = {
         min: 5,
-        max: 10,
+        max: 10
       }
 
       const state = filter(randomInitialState(), ActionCreators.updateFilter(type, newState))
@@ -63,5 +63,4 @@ describe('filters: ', () => {
     const filteredList = '4324 3h3243 h hsdafdafh 134hjh'.split(' ')
     filter(undefined, ActionCreators.setFilteredTrackList(filteredList))
   })
-
 })

@@ -1,5 +1,4 @@
 import entities from './../../client/reducers/entities'
-import * as types from './../../client/constants/ActionTypes'
 import * as ActionCreators from './../../client/actions/ActionCreators'
 
 describe('entities: ', () => {
@@ -22,9 +21,9 @@ describe('entities: ', () => {
     const trackList = [{
       track: trackListArray[0]
     },
-    {
-      track: trackListArray[1]
-    }]
+      {
+        track: trackListArray[1]
+      }]
 
     const tracks = {
       'asfasdf': {

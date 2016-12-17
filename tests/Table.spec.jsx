@@ -1,7 +1,6 @@
-import ReactTestUtils from 'react-addons-test-utils' // ES6
 import React from 'react'
 import Table from './../client/components/Table'
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount, render } from 'enzyme'
 
 const TABLE_ITEM_CLASS = '.Table-item'
 const TABLE_ROW_CLASS = '.Table-row'
@@ -11,19 +10,19 @@ const DESCENDING_ORDER_CLASS = 'desc'
 
 const DATA = [
   {
-    "row1": "1Lorem ipsum  sit amet",
-    "row2": "1Lorem dolor sit amet",
-    "row3": "1Lorem ipsum dolor  amet"
+    'row1': '1Lorem ipsum  sit amet',
+    'row2': '1Lorem dolor sit amet',
+    'row3': '1Lorem ipsum dolor  amet'
   },
   {
-    "row1": "2Lor ipsum dolor sit amet",
-    "row2": "2Lorem ipsum dolor sit amet",
-    "row3": "2Lorm ipsum dolor sit aet"
+    'row1': '2Lor ipsum dolor sit amet',
+    'row2': '2Lorem ipsum dolor sit amet',
+    'row3': '2Lorm ipsum dolor sit aet'
   },
   {
-    "row1": "3Lom ipsum dolor sit amet",
-    "row2": "3Lorem sum dolor sit amet",
-    "row3": "3Lorem ipsum dor sit amet"
+    'row1': '3Lom ipsum dolor sit amet',
+    'row2': '3Lorem sum dolor sit amet',
+    'row3': '3Lorem ipsum dor sit amet'
   }
 ]
 
@@ -77,7 +76,7 @@ describe('Table Component: ', () => {
   it('when clicked on header item it should call function with val', () => {
     const func = jasmine.createSpy('getID')
     const clickableTable = mount(<Table data={DATA} onHeaderClick={func} />)
-    const headerItems = 
+    const headerItems =
       clickableTable.find(TABLE_ROW_HEADER).find(TABLE_ITEM_CLASS)
     headerItems.forEach((item) => {
       item.simulate('click')
@@ -90,7 +89,7 @@ describe('Table Component: ', () => {
 
   const testIfSortClassIsAdded = (sortClass) => {
     const clickableTable = mount(<Table data={DATA} sort={sortClass} />)
-    const headerItems = 
+    const headerItems =
       clickableTable.find(TABLE_ROW_HEADER).find(TABLE_ITEM_CLASS)
 
     headerItems.forEach((item) => {
@@ -114,6 +113,5 @@ describe('Table Component: ', () => {
       direction: DESCENDING_ORDER_CLASS
     }
     testIfSortClassIsAdded(descSort)
-
   })
 })

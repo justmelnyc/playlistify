@@ -8,7 +8,11 @@ import * as AuthedActions from './../actions/AuthedUser'
 import { createPlaylist } from './../actions/CreatePlaylist'
 
 const propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  profile: PropTypes.object.isRequired,
+  trackList: PropTypes.array.isRequired,
+  playlist: PropTypes.object.isRequired
 }
 
 class App extends Component {
@@ -27,6 +31,9 @@ class App extends Component {
   }
 
   render () {
+    const { isLoggedIn, profile, trackList, playlist } = this.props
+    const { creatingPlaylist, playlistName } = playlist
+
     return (
       <div className='Container'>
         <div className='Nav'>
@@ -34,6 +41,24 @@ class App extends Component {
         </div>
         <Filters />
         <Viewer />
+
+        /*
+          TODO:
+          Refactor This Loading screen
+         */
+
+        {isLoggedIn && profile === null &&
+          <div className='Loader'>LOADING PROFILE</div>
+        }
+
+        {isLoggedIn && profile && !trackList.length &&
+          <div className='Loader'> LOADING TRACKS can take a while</div>
+        }
+
+        {creatingPlaylist &&
+          <div className='Loader'>Generating the playlist {playlistName} for you </div>
+        }
+
       </div>
     )
   }
@@ -42,7 +67,12 @@ class App extends Component {
 App.propTypes = propTypes
 
 function mapStateToProps (state) {
-  return {}
+  return {
+    isLoggedIn: state.user.isLoggedIn,
+    profile: state.user.profile,
+    trackList: state.entities.trackList,
+    playlist: state.playlist
+  }
 }
 
 export default connect(mapStateToProps)(App)

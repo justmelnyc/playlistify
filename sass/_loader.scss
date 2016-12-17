@@ -1,0 +1,44 @@
+
+.Loader {
+      height: 50px;
+    /* width: 100%; */
+    /* line-height: 50px; */
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* font-family: helvetica, arial, sans-serif; */
+    /* text-transform: uppercase; */
+    /* font-weight: 900; */
+    color: red;
+    /* letter-spacing: 0.2em; */
+    z-index: 999999999;
+  
+  &::before, &::after {
+        content: "";
+    display: block;
+    /* width: 15px; */
+    /* height: 15px; */
+    background: red;
+    position: absolute; 
+    animation: load .7s infinite alternate ease-in-out;
+    height: 30px;
+  }
+  
+  &::before {
+    top: 0;
+  }
+  
+  &::after {
+    bottom: 0;
+  }
+}
+
+@keyframes load {
+  0% { left: 0; width: 0% }
+  49% { left: 0; right: 0; }
+  50% { width: 100%;}
+  51% { left: auto; right: 0; }
+  100% {  width: 0%}
+}

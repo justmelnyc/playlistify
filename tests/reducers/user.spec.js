@@ -1,5 +1,4 @@
 import user from './../../client/reducers/user'
-import * as types from './../../client/constants/ActionTypes'
 import * as ActionCreators from './../../client/actions/ActionCreators'
 
 describe('User: ', () => {
@@ -46,7 +45,7 @@ describe('User: ', () => {
 
   it('RECEIVED_USER_PROFILE', () => {
     const profile = {
-      name: "asdfd"
+      name: 'asdfd'
     }
     const loggedInState = {
       isLoggedIn: true,

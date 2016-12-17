@@ -1,7 +1,6 @@
 import * as ActionCreators from './ActionCreators'
 
 export const filterTrackList = () => {
-
   return (dispatch, getState) => {
     const { filter, entities } = getState()
     const { filterOptions } = filter
@@ -10,7 +9,6 @@ export const filterTrackList = () => {
     const filteredTrackList = filteredTracks(trackList, tracks, filterOptions)
     dispatch(ActionCreators.setFilteredTrackList(filteredTrackList))
   }
-
 }
 
 function filteredTracks (trackList, tracks, filterOptions) {
