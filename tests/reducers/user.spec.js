@@ -7,21 +7,27 @@ describe('User: ', () => {
     expect(initialState).toEqual({
       isLoggedIn: false,
       profile: null,
-      accessToken: null
+      accessToken: null,
+      expDate: null
     })
   })
 
-  it('#receiveAccessToken() should log in', () => {
-    const accessToken = 'af13rfjdsfaf'
+  it('VALIDATE_USER_SESSION should log in the user', () => {
+    const token = 'some random token'
+    const expDate = +new Date()
+
     const state = user(
-      undefined, ActionCreators.receiveAccessToken(accessToken)
+      undefined,
+      ActionCreators.validateUserSession(token, expDate)
     )
 
-    expect(state).toEqual({
-      isLoggedIn: true,
-      profile: null,
-      accessToken: accessToken
-    })
+    expect(state).toEqual(
+      jasmine.objectContaining({
+        isLoggedIn: true,
+        accessToken: token,
+        expDate: expDate
+      })
+    )
   })
 
   it('INVALIDATE_USER_SESSION should log out the user', () => {
@@ -33,7 +39,7 @@ describe('User: ', () => {
 
     const newState = user(
       loggedInState,
-      ActionCreators.invalidateUserSesssion()
+      ActionCreators.invalidateUserSession()
     )
 
     expect(newState).toEqual({

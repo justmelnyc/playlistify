@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import Viewer from './Viewer'
 import Filters from './Filters'
 
-import * as AuthedActions from './../actions/AuthedUser'
-import { createPlaylist } from './../actions/CreatePlaylist'
+import * as AuthActions from './../actions/AuthActions'
+import { createPlaylist } from './../actions/PlaylistActions'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -23,7 +23,7 @@ class App extends Component {
 
   componentDidMount () {
     const { dispatch } = this.props
-    dispatch(AuthedActions.initialLogin())
+    dispatch(AuthActions.initialLogin())
   }
 
   createPlaylist () {

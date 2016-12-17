@@ -7,12 +7,12 @@ module.exports = function (config) {
     ],
     exclude: [],
     preprocessors: {
-      './tests/**/*.spec.*': ["webpack"]
+      './tests/**/*.spec.*': ['webpack']
     },
     // webpack configuration
-    webpack: require("./webpack.config.js"),
+    webpack: require('./webpack.config.js'),
     webpackMiddleware: {
-      stats: "errors-only"
+      stats: 'errors-only'
     },
     reporters: ['progress'],
     port: 9876,
@@ -28,5 +28,5 @@ module.exports = function (config) {
     },
     singleRun: false,
     concurrency: Infinity
-  });
-};
+  })
+}

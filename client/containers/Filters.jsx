@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import * as ActionCreators from './../actions/ActionCreators'
-import {filterTrackList} from './../actions/FilterTracks'
+import {filterTrackList} from './../actions/FilterActions'
 
 import Filter from './../components/Filter'
 

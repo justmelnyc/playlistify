@@ -3,7 +3,8 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   isLoggedIn: false,
   accessToken: null,
-  profile: null
+  profile: null,
+  expDate: null
 }
 
 export default function auth (state = initialState, action) {
@@ -13,6 +14,13 @@ export default function auth (state = initialState, action) {
       return Object.assign({}, state, {
         isLoggedIn: true,
         accessToken: action.accessToken
+      })
+
+    case types.VALIDATE_USER_SESSION:
+      return Object.assign({}, state, {
+        isLoggedIn: true,
+        accessToken: action.accessToken,
+        expDate: action.expDate
       })
 
     case types.INVALIDATE_USER_SESSION:

@@ -37,3 +37,10 @@ export const getAccessTokenFromUrl = () => {
   const token = window.location.hash.split('&')[0].split('=')[1]
   return token || null
 }
+
+export const getTokenExpirationTime = () => {
+  const params = window.location.hash.split('&')
+  const expirationDate = params[params.length - 1]
+  expirationDate.split('=')[1]
+  return expirationDate || null
+}

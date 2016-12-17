@@ -6,6 +6,14 @@ import * as types from '../constants/ActionTypes'
  *
  */
 
+export function validateUserSession (accessToken, expDate) {
+  return {
+    type: types.VALIDATE_USER_SESSION,
+    accessToken,
+    expDate
+  }
+}
+
 export function receiveAccessToken (accessToken) {
   return {
     type: types.RECEIVED_ACCESS_TOKEN,
@@ -13,7 +21,7 @@ export function receiveAccessToken (accessToken) {
   }
 }
 
-export function invalidateUserSesssion () {
+export function invalidateUserSession () {
   return {
     type: types.INVALIDATE_USER_SESSION
   }

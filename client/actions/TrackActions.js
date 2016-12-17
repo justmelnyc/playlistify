@@ -8,7 +8,7 @@ export const getTrackData = () => {
   return (dispatch, getState) => {
     const accessToken = getState().user.accessToken
 
-    paginateTrackItems(accessToken).then((tracks) => {
+    return paginateTrackItems(accessToken).then((tracks) => {
       dispatch(ActionCreators.receiveApiEntities(tracks))
       dispatch(ActionCreators.setFilteredTrackList(tracks.result.map((track) => track.track)))
     })
