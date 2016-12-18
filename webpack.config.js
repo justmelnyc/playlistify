@@ -1,11 +1,11 @@
-"use strict";
-var webpack = require('webpack');
-var path = require('path');
-var loaders = require('./webpack.loaders');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+'use strict'
+var webpack = require('webpack')
+var path = require('path')
+var loaders = require('./webpack.loaders')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const HOST = process.env.HOST || "127.0.0.1";
-const PORT = process.env.PORT || "3000";
+const HOST = process.env.HOST || '127.0.0.1'
+const PORT = process.env.PORT || '3000'
 
 module.exports = {
   entry: [
@@ -23,16 +23,17 @@ module.exports = {
     'cheerio': 'window',
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true
+    'react/lib/ReactContext': true,
+    'fs': '{}'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', ".ts", ".tsx", ]
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx' ]
   },
   module: {
     loaders
   },
   devServer: {
-    contentBase: "./public",
+    contentBase: './public',
     // do not print bundle build stats
     noInfo: true,
     // enable HMR
@@ -46,9 +47,9 @@ module.exports = {
   },
   watch: true,
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoErrorsPlugin()
     // new HtmlWebpackPlugin({
     //  template: './public/index.html'
     // }),
   ]
-};
+}

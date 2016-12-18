@@ -1,7 +1,15 @@
-// import { LoginOrRedirect } from './../../client/actions/AuthedUser.js'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import nock from 'nock'
+var fetchMock = require('fetch-mock')
+
 import * as API from './../../client/helpers/SpotifyApi'
 import * as ActionCreators from './../../client/actions/ActionCreators'
 import * as AuthActions from './../../client/actions/AuthActions'
+import * as ProfileActions from './../../client/actions/ProfileActions'
+
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
 describe('Login User', () => {
   let futureDate, pastDate
@@ -10,6 +18,10 @@ describe('Login User', () => {
     futureDate = futureDate.setMinutes(futureDate.getMinutes() + 10)
     pastDate = new Date()
     pastDate = pastDate.setMinutes(pastDate.getMinutes() - 10)
+  })
+
+  afterEach(() => {
+    nock.cleanAll()
   })
 
   describe('#isAuthenticated', () => {
@@ -52,18 +64,22 @@ describe('Login User', () => {
     const profile = {
       'profile': 'data'
     }
-    const dispatch = jasmine.createSpy('dispatch')
-    const getState = () => {
-      return { user: { accessToken: 'asf' } }
-    }
 
-    // FIXME: THIS SPY IS NOT WORKING -- not returning a new value
-    // spyOn(AuthedActions, 'fetchUserProfile').and.returnValue(Promise.resolve('fdf'))
+    fetchMock.get('*', profile)
 
-    // AuthedActions.getUserProfile()(dispatch, getState).then(() => {
-    //   expect(dispatch).toHaveBeenCalledWith(ActionCreators.receiveUserProfile(profile))
-    // })
-    done()
+    const store = mockStore({
+      user: {
+        accessToken: null
+      },
+      profile: {}
+    })
+
+    const expectedAction = ActionCreators.receiveUserProfile(profile)
+
+    return store.dispatch(ProfileActions.getUserProfile()).then(() => {
+      expect(store.getActions()[0]).toEqual(expectedAction)
+      done()
+    })
   })
 })
 

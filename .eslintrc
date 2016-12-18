@@ -10,6 +10,7 @@
     "it": false,
     "expect": false,
     "jasmine": false,
-    "spyOn": false
+    "spyOn": false,
+    "afterEach": false
   }
 }
