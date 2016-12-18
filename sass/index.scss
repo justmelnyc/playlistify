@@ -4,6 +4,8 @@ $seafoam: #52ddc8;
 $radius: 5px;
 $spaceFromTop: 2rem;
 $gradient--pinkPurple: linear-gradient(90deg, $purp -50%, $pink 150%);
+$gradient--pinkPurple--opacity: linear-gradient(90deg, transparentize($purp, .4) -50%, transparentize($pink, .4) 150%);
+
 
 body {
   background: $gradient--pinkPurple;
@@ -29,6 +31,7 @@ body {
 @import 'table';
 @import 'input';
 @import 'loader';
+@import 'modal';
 
 body,
 html {

@@ -14,13 +14,17 @@ export const createPlaylist = (playListName) => {
 
     createNewPlaylistByName(accessToken, id, playListName)
       .then((data) => {
-        dispatch(ActionCreators.playlistCreated(data))
-        dispatch(addAllFilteredTracksToPlaylist())
+        dispatch(ActionCreators.setPlaylistDetails(data))
+        return dispatch(addAllFilteredTracksToPlaylist())
       })
       .then(() => {
-        dispatch(ActionCreators.tracksAddedToPlaylist())
+        dispatch(ActionCreators.playlistCreated())
       })
   }
+}
+
+export const finishPlaylist = () => {
+  return ActionCreators.endPlaylistCreation()
 }
 
 function createNewPlaylistByName (accessToken, userId, name) {
@@ -34,7 +38,6 @@ function createNewPlaylistByName (accessToken, userId, name) {
 
 function addAllFilteredTracksToPlaylist () {
   return (dispatch, getState) => {
-    dispatch(ActionCreators.addingTracksToPlaylist())
     const { playlist, filter, user } = getState()
     const { filteredTrackList } = filter
     const { playlistId } = playlist

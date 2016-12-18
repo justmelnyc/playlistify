@@ -111,15 +111,23 @@ export function createPlaylist (name) {
   }
 }
 
-export function playlistCreated (res) {
+export function setPlaylistDetails (res) {
   const id = res.id
   const url = res.external_urls.spotify
 
   return {
-    type: types.PLAYLIST_CREATION_COMPLETED,
+    type: types.SET_PLAYLIST_DETAILS,
     data: {
       playlistId: id,
-      playlistUrl: url,
+      playlistUrl: url
+    }
+  }
+}
+
+export function playlistCreated () {
+  return {
+    type: types.PLAYLIST_CREATION_COMPLETED,
+    data: {
       callingApi: false
     }
   }

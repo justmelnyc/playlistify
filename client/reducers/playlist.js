@@ -9,13 +9,15 @@ const initialState = {
 }
 
 export default function playlist (state = initialState, action) {
-  console.log('asdfsdf')
   switch (action.type) {
 
     case types.PLAYLIST_CREATION_INITIATED:
       return Object.assign({}, state, action.data)
 
     case types.GENERATE_PLAYLIST:
+      return Object.assign({}, state, action.data)
+
+    case types.SET_PLAYLIST_DETAILS:
       return Object.assign({}, state, action.data)
 
     case types.PLAYLIST_CREATION_COMPLETED:

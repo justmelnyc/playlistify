@@ -3,9 +3,14 @@ import { connect } from 'react-redux'
 
 import Viewer from './Viewer'
 import Filters from './Filters'
+import Playlist from './../components/Playlist'
 
 import * as AuthActions from './../actions/AuthActions'
-import { createPlaylist } from './../actions/PlaylistActions'
+import {
+  initiatePlaylist,
+  createPlaylist,
+  finishPlaylist
+} from './../actions/PlaylistActions'
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -18,7 +23,9 @@ const propTypes = {
 class App extends Component {
   constructor (props) {
     super(props)
-    this.createPlaylist = this.createPlaylist.bind(this)
+    this.initiatePlaylist = this.initiatePlaylist.bind(this)
+    this.generatePlaylist = this.generatePlaylist.bind(this)
+    this.finishPlaylist = this.finishPlaylist.bind(this)
   }
 
   componentDidMount () {
@@ -26,20 +33,28 @@ class App extends Component {
     dispatch(AuthActions.initialLogin())
   }
 
-  createPlaylist () {
-    this.props.dispatch(createPlaylist('MAKE A DEFAULT NAME'))
+  initiatePlaylist () {
+    const { dispatch } = this.props
+    dispatch(initiatePlaylist())
+  }
+
+  generatePlaylist (name) {
+    const { dispatch } = this.props
+    dispatch(createPlaylist(name))
+  }
+
+  finishPlaylist () {
+    const { dispatch } = this.props
+    dispatch(finishPlaylist())
   }
 
   render () {
     const { isLoggedIn, profile, trackList, playlist } = this.props
-    const { creatingPlaylist, playlistName } = playlist
-
-    console.log(trackList)
 
     return (
       <div className='Container'>
         <div className='Nav'>
-          <button onClick={this.createPlaylist}>Create Playlist</button>
+          <button onClick={this.initiatePlaylist}>Create Playlist</button>
         </div>
         <Filters />
         <Viewer />
@@ -63,13 +78,11 @@ class App extends Component {
            </svg></div>
         }
 
-        {creatingPlaylist &&
-          <div className='Loader'>Generating the playlist {playlistName} for you
-           <svg className='spinner' width='65px' height='65px' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'>
-             <circle className='path' fill='none' strokeWidth='6' strokeLinecap='round' cx='33' cy='33' r='30' />
-           </svg></div>
-        }
-
+        <Playlist
+          {...playlist}
+          generatePlaylist={this.generatePlaylist}
+          finishPlaylist={this.finishPlaylist}
+          />
       </div>
     )
   }
@@ -78,7 +91,6 @@ class App extends Component {
 App.propTypes = propTypes
 
 function mapStateToProps (state) {
-  console.log(state)
   return {
     isLoggedIn: state.user.isLoggedIn,
     profile: state.user.profile,

@@ -1,0 +1,24 @@
+.Overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $gradient--pinkPurple--opacity;
+    position: fixed;
+    z-index: 999999;
+}
+
+.Modal {
+    position: fixed;
+    z-index: 9999999;
+    background: white;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column
+}
