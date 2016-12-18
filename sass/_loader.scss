@@ -1,12 +1,11 @@
-
 .Loader {
-  position: fixed;
+    position: fixed;
     z-index: 99999999;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
-    background: rgba(0, 0, 0, 0.4);
+     background: $gradient--pinkPurple--opacity;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,9 +21,6 @@
     bottom: 0;
   }
 }
-
-
-// Here is where the magic happens
 
 $offset: 187;
 $duration: 1.4s;

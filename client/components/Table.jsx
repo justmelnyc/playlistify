@@ -40,7 +40,10 @@ class Table extends React.Component {
 
   currentPagination () {
     const {data} = this.props
-    return data.slice(this.state.pageStart, this.state.pageEnd)
+    // return data.slice(this.state.pageStart, this.state.pageEnd)
+
+    // for now remove paginaton
+    return data
   }
 
   nextPage () {
@@ -113,14 +116,6 @@ class Table extends React.Component {
           })}
         </div>
 
-        <div className='Table-footer'>
-
-          <div className='Pagination'>
-            {this.generatePageTabs()}
-          </div>
-
-        </div>
-
       </div>
     )
   }
@@ -129,3 +124,13 @@ class Table extends React.Component {
 Table.propTypes = propTypes
 
 export default Table
+
+/*
+<div className='Table-footer'>
+
+          <div className='Pagination'>
+            {this.generatePageTabs()}
+          </div>
+
+        </div>
+*/

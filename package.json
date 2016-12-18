@@ -2,6 +2,9 @@
   "name": "playlistify",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "6.2.0"
+  },
   "devDependencies": {
     "awesome-typescript-loader": "^3.0.0-beta.9",
     "babel-core": "6.18.2",
@@ -75,10 +78,11 @@
     "redux-devtools-extension": "^1.0.0",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
+    "request": "^2.79.0",
     "whatwg-fetch": "^2.0.1"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "./node_modules/karma/bin/karma start --single-run",
     "test:watch": "./node_modules/karma/bin/karma start",

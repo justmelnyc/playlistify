@@ -5,6 +5,7 @@ export const filterTrackList = () => {
     const { filter, entities } = getState()
     const { filterOptions } = filter
     const { trackList, tracks } = entities
+    console.log(filter)
 
     const filteredTrackList = filteredTracks(trackList, tracks, filterOptions)
     dispatch(ActionCreators.setFilteredTrackList(filteredTrackList))
@@ -15,6 +16,7 @@ function filteredTracks (trackList, tracks, filterOptions) {
   return trackList.filter((id) => {
     const track = tracks[id]
     let keepTrack = true
+    console.log(track, trackList)
 
     Object.keys(filterOptions).forEach((filterKey) => {
       const currFilter = filterOptions[filterKey]
