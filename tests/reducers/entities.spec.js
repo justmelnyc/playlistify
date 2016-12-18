@@ -18,12 +18,7 @@ describe('entities: ', () => {
 
   it('should update entities when provided a normalized entity structure', () => {
     const trackListArray = ['asdfd', 'asfdf']
-    const trackList = [{
-      track: trackListArray[0]
-    },
-      {
-        track: trackListArray[1]
-      }]
+    const trackList = ['asdfd', 'asfdf']
 
     const tracks = {
       'asfasdf': {
@@ -47,9 +42,10 @@ describe('entities: ', () => {
       entities: {
         albums: albums,
         artists: artists,
-        tracks: tracks
-      },
-      result: trackList
+        tracks: tracks,
+        trackList: trackList
+      }
+
     }
 
     const state = entities({}, ActionCreators.receiveApiEntities(entityStructure))

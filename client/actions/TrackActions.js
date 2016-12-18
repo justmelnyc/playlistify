@@ -8,10 +8,11 @@ export const getTrackData = () => {
   return (dispatch, getState) => {
     const accessToken = getState().user.accessToken
 
-    return paginateTrackItems(accessToken).then((tracks) => {
-      const trackList = tracks.result.map((d) => { return d.track })
-      tracks.trackList = trackList
-      dispatch(ActionCreators.receiveApiEntities(tracks))
+    return paginateTrackItems(accessToken).then((entities) => {
+      const trackList = entities.result.map((d) => { return d.track })
+      entities.trackList = trackList
+
+      dispatch(ActionCreators.receiveApiEntities(entities))
       dispatch(ActionCreators.setFilteredTrackList(trackList))
     })
   }

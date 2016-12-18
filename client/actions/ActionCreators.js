@@ -43,6 +43,8 @@ export function receiveUserProfile (profile) {
 export function receiveApiEntities (res) {
   const { albums, artists, tracks, trackList } = res.entities
 
+  console.log(trackList)
+
   return {
     type: types.RECEIVED_DATA_ENTITIES,
     data: {
