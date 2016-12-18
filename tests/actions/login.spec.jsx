@@ -59,28 +59,6 @@ describe('Login User', () => {
       expect(validateUserSession.calls.count()).toEqual(1)
     })
   })
-
-  it('#getUserProfile should dispatch receive user profile on api res', (done) => {
-    const profile = {
-      'profile': 'data'
-    }
-
-    fetchMock.get('*', profile)
-
-    const store = mockStore({
-      user: {
-        accessToken: null
-      },
-      profile: {}
-    })
-
-    const expectedAction = ActionCreators.receiveUserProfile(profile)
-
-    return store.dispatch(ProfileActions.getUserProfile()).then(() => {
-      expect(store.getActions()[0]).toEqual(expectedAction)
-      done()
-    })
-  })
 })
 
 function mockAccessToken (tokenVal = 'rando') {

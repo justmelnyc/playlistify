@@ -12,8 +12,5 @@ export const getUserProfile = () => {
 }
 
 export const fetchUserProfile = (accessToken) => {
-  return fetch(API.profile, API.GETRequest(accessToken)).then(API.parseJSON).then((d) => {
-    // console.log(d)
-    return d
-  })
+  return fetch(API.profile, API.GETRequest(accessToken)).then(API.parseJSON)
 }

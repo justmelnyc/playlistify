@@ -41,7 +41,7 @@ export function receiveUserProfile (profile) {
  */
 
 export function receiveApiEntities (res) {
-  const { albums, artists, tracks } = res.entities
+  const { albums, artists, tracks, trackList } = res.entities
 
   return {
     type: types.RECEIVED_DATA_ENTITIES,
@@ -49,7 +49,7 @@ export function receiveApiEntities (res) {
       albums,
       artists,
       tracks,
-      trackList: res.result.map((d) => { return d.track })
+      trackList: trackList
     }
   }
 }

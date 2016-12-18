@@ -9,13 +9,15 @@ export const getTrackData = () => {
     const accessToken = getState().user.accessToken
 
     return paginateTrackItems(accessToken).then((tracks) => {
+      const trackList = tracks.result.map((d) => { return d.track })
+      tracks.trackList = trackList
       dispatch(ActionCreators.receiveApiEntities(tracks))
-      dispatch(ActionCreators.setFilteredTrackList(tracks.result.map((track) => track.track)))
+      dispatch(ActionCreators.setFilteredTrackList(trackList))
     })
   }
 }
 
-function paginateTrackItems (accessToken, url = API.trackUrl, items = []) {
+export function paginateTrackItems (accessToken, url = API.trackUrl, items = []) {
   if (!url) {
     const normalizedData = normalizeTrackArray(items)
     const trackIds = normalizedData.result.map((item) => {
