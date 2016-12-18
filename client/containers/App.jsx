@@ -34,6 +34,8 @@ class App extends Component {
     const { isLoggedIn, profile, trackList, playlist } = this.props
     const { creatingPlaylist, playlistName } = playlist
 
+    console.log(trackList)
+
     return (
       <div className='Container'>
         <div className='Nav'>
@@ -76,6 +78,7 @@ class App extends Component {
 App.propTypes = propTypes
 
 function mapStateToProps (state) {
+  console.log(state)
   return {
     isLoggedIn: state.user.isLoggedIn,
     profile: state.user.profile,

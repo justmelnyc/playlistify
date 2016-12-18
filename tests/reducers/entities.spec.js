@@ -42,10 +42,9 @@ describe('entities: ', () => {
       entities: {
         albums: albums,
         artists: artists,
-        tracks: tracks,
-        trackList: trackList
-      }
-
+        tracks: tracks
+      },
+      result: trackList
     }
 
     const state = entities({}, ActionCreators.receiveApiEntities(entityStructure))

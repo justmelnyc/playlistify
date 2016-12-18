@@ -1,6 +1,10 @@
 import * as ActionCreators from './ActionCreators'
 import * as API from './../helpers/SpotifyApi'
 
+export const initiatePlaylist = () => {
+  return ActionCreators.initiatePlaylist()
+}
+
 export const createPlaylist = (playListName) => {
   return (dispatch, getState) => {
     const { profile, accessToken } = getState().user

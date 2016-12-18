@@ -41,9 +41,7 @@ export function receiveUserProfile (profile) {
  */
 
 export function receiveApiEntities (res) {
-  const { albums, artists, tracks, trackList } = res.entities
-
-  console.log(trackList)
+  const { albums, artists, tracks } = res.entities
 
   return {
     type: types.RECEIVED_DATA_ENTITIES,
@@ -51,7 +49,7 @@ export function receiveApiEntities (res) {
       albums,
       artists,
       tracks,
-      trackList: trackList
+      trackList: res.result
     }
   }
 }
@@ -93,12 +91,22 @@ export function setFilteredTrackList (filteredTrackList) {
  *
  */
 
-export function createPlaylist (name) {
+export function initiatePlaylist () {
   return {
     type: types.PLAYLIST_CREATION_INITIATED,
     data: {
-      playlistName: name,
       creatingPlaylist: true
+    }
+  }
+}
+
+export function createPlaylist (name) {
+  return {
+    type: types.GENERATE_PLAYLIST,
+    data: {
+      playlistName: name,
+      creatingPlaylist: true,
+      callingApi: true
     }
   }
 }
@@ -110,25 +118,15 @@ export function playlistCreated (res) {
   return {
     type: types.PLAYLIST_CREATION_COMPLETED,
     data: {
-      playlistName: null,
       playlistId: id,
-      playlistUrl: url
+      playlistUrl: url,
+      callingApi: false
     }
   }
 }
 
-export function addingTracksToPlaylist () {
+export function endPlaylistCreation () {
   return {
-    type: types.ADDING_TRACKS_TO_PLAYLIST_INITIATED,
-    data: {}
-  }
-}
-
-export function tracksAddedToPlaylist () {
-  return {
-    type: types.ADDING_TRACKS_TO_PLAYLIST_COMPLETED,
-    data: {
-      creatingPlaylist: false
-    }
+    type: types.FINISH_PLAYLIST_CREATION
   }
 }
