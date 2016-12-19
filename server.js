@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser')
 
 var client_id = '1ceb6941fede43ed894262ff92fa3eeb' // Your client id
 var client_secret = '2f0df9ec28b34014bc7c542e5f017592' // Your secret
-var redirect_uri = 'http://localhost:3000/callback' // Your redirect uri
+var redirect_uri = 'https://protected-fjord-55076.herokuapp.com/callback' // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
