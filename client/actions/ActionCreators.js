@@ -6,17 +6,18 @@ import * as types from '../constants/ActionTypes'
  *
  */
 
-export function validateUserSession (accessToken, expDate) {
+export function validateUserSession (accessToken, expDate, refreshToken) {
   return {
     type: types.VALIDATE_USER_SESSION,
     accessToken,
-    expDate
+    expDate,
+    refreshToken
   }
 }
 
-export function receiveAccessToken (accessToken) {
+export function updateAccessToken (accessToken) {
   return {
-    type: types.RECEIVED_ACCESS_TOKEN,
+    type: types.UPDATE_ACCESS_TOKEN,
     accessToken
   }
 }

@@ -1,5 +1,6 @@
 import * as ActionCreators from './ActionCreators'
 import * as API from './../helpers/SpotifyApi'
+import * as AuthActions from './AuthActions'
 
 export const initiatePlaylist = () => {
   return ActionCreators.initiatePlaylist()
@@ -19,6 +20,11 @@ export const createPlaylist = (playListName) => {
       })
       .then(() => {
         dispatch(ActionCreators.playlistCreated())
+      })
+      .catch((e) => {
+        console.error(e)
+        dispatch(AuthActions.refreshAccessToken())
+        alert('There was an error. Try again.')
       })
   }
 }

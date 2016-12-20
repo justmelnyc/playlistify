@@ -35,7 +35,8 @@ export const login = () => {
   if (isAuthenticated()) {
     const accessToken = API.getAccessTokenFromUrl()
     const expDate = new Date(parseInt(API.getTokenExpirationTime()))
-    return ActionCreators.validateUserSession(accessToken, expDate)
+    const refreshToken = API.getRefreshTokenFromUrl()
+    return ActionCreators.validateUserSession(accessToken, expDate, refreshToken)
   } else {
     return ActionCreators.invalidateUserSession()
   }
@@ -51,5 +52,18 @@ export const initialLogin = () => {
       dispatch(ProfileActions.getUserProfile()),
       dispatch(TrackActions.getTrackData())
     ])
+  }
+}
+
+export const refreshAccessToken = () => {
+  return (dispatch, getStore) => {
+    const {refreshToken} = getStore().user
+
+    fetch(`/refresh_token?refresh_token=${refreshToken}`)
+    .then(API.parseJSON)
+    .then((res) => {
+      console.log(res.access_token)
+      dispatch(ActionCreators.updateAccessToken(res.access_token))
+    })
   }
 }

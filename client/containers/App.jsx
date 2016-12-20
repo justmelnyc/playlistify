@@ -30,7 +30,13 @@ class App extends Component {
 
   componentDidMount () {
     const { dispatch } = this.props
-    dispatch(AuthActions.initialLogin())
+
+    console.log(AuthActions.isAuthenticated())
+    if (AuthActions.isAuthenticated()) {
+      dispatch(AuthActions.initialLogin())
+    } else {
+      window.location.replace('/login')
+    }
   }
 
   initiatePlaylist () {

@@ -31,20 +31,6 @@ export function paginateTrackItems (accessToken, url = API.trackUrl, items = [])
     return paginateTrackAudioAnalysis(accessToken, normalizedData, trackIds)
   }
 
-  // JUST FOR DEV TO NOT BLOW UP SPOTIFY SERVERS
-  // console.info(process.env.NODE_ENV)
-  // if (process.env.NODE_ENV) {
-  if (items.length > 140) {
-    // NEEDS TO BE SAME AS if (!URL)
-    const normalizedData = normalizeTrackArray(items)
-    const trackIds = normalizedData.result.map((item) => {
-      return item.track
-    })
-
-    return paginateTrackAudioAnalysis(accessToken, normalizedData, trackIds)
-  }
-  // }
-
   return fetch(url, API.GETRequest(accessToken))
     .then(API.parseJSON)
     .then((res) => {
@@ -53,7 +39,6 @@ export function paginateTrackItems (accessToken, url = API.trackUrl, items = [])
     })
     .catch((e) => {
       console.error(e)
-      // dispatch(ActionCreators.invalidateUserSesssion())
     })
 }
 

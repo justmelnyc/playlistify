@@ -34,13 +34,19 @@ export const parseJSON = (res) => {
 }
 
 export const getAccessTokenFromUrl = () => {
-  const token = window.location.hash.split('&')[0].split('=')[1]
-  return token || null
+  const params = window.location.hash.split('&')
+  const token = params[0] ? params[0].split('=')[1] : null
+  return token
 }
 
 export const getTokenExpirationTime = () => {
   const params = window.location.hash.split('&')
-  const expirationDate = params[params.length - 1]
-  expirationDate.split('=')[1]
-  return expirationDate || null
+  const expirationDate = params[2] ? params[2].split('=')[1] : null
+  return expirationDate
+}
+
+export const getRefreshTokenFromUrl = () => {
+  const params = window.location.hash.split('&')
+  const refreshToken = params[1] ? params[1].split('=')[1] : null
+  return refreshToken
 }
