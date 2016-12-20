@@ -9,6 +9,7 @@
 import React, { PropTypes } from 'react'
 
 import TableHeader from './TableHeader'
+import TableFooter from './TableFooter'
 
 const propTypes = {
   data: PropTypes.array.isRequired,
@@ -23,10 +24,12 @@ class Table extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      pageStart: 0,
-      pageEnd: 20,
+      currentPage: 0,
       pageInterval: 20
     }
+    this.handlePageSelection = this.handlePageSelection.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.previousPage = this.previousPage.bind(this)
   }
 
   buildTableItems (datum) {
@@ -38,61 +41,60 @@ class Table extends React.Component {
     return this.props.data[0] ? Object.keys(this.props.data[0]) : []
   }
 
-  currentPagination () {
-    const {data} = this.props
-    // return data.slice(this.state.pageStart, this.state.pageEnd)
+  /**
+   *
+   * Pagination
+   *
+   */
 
-    // for now remove paginaton
-    return data
+  currentPage () {
+    const { currentPage } = this.state
+    const numOfPages = this.numberOfPages()
+    return currentPage <= numOfPages ? currentPage : numOfPages
+  }
+
+  numberOfPages () {
+    const { pageInterval } = this.state
+    const { data } = this.props
+    return Math.floor(data.length / pageInterval)
+  }
+
+  handlePageSelection (pageNum) {
+    this.setState({
+      currentPage: pageNum
+    })
   }
 
   nextPage () {
-    this.setState((prevState) => {
-      const pageStart = prevState.pageEnd
-      const pageEnd = pageStart + this.state.pageInterval
-
-      if (pageEnd <= this.props.data.length) {
-        return {
-          pageStart: pageStart,
-          pageEnd: pageEnd
-        }
-      }
-    })
-  }
-
-  prevPage () {
-    this.setState((prevState) => {
-      const pageEnd = prevState.pageStart
-      const pageStart = prevState.pageStart - this.state.pageInterval
-
-      if (pageStart >= 0) {
-        return {
-          pageStart: pageStart,
-          pageEnd: pageEnd
-        }
-      }
-    })
-  }
-
-  goToPage (pageNum) {
-
-  }
-
-  generatePageTabs () {
-    const pageNums = Math.ceil(this.props.data.length / this.state.pageInterval)
-    let tabs = []
-    for (let i = 0; i <= pageNums; i++) {
-      tabs.push(
-        <li key={i} onClick={this.goToPage(i)} ><span>{i + 1}</span></li>
-      )
+    const { currentPage } = this.state
+    if (currentPage + 1 <= this.numberOfPages()) {
+      this.setState({
+        currentPage: currentPage + 1
+      })
     }
+  }
 
-    if (tabs.length > 5) {
-      tabs = tabs.slice(0, 4)
-      tabs.push(<li><span>...</span></li>)
+  previousPage () {
+    const { currentPage } = this.state
+    if (currentPage - 1 >= 0) {
+      this.setState({
+        currentPage: currentPage - 1
+      })
     }
+  }
 
-    return (<ul><li className='paginator'>Prev</li>{tabs}<li className='paginator'>Next</li></ul>)
+  // returns array [startIndex, endIndex]
+  indexOfDataInView () {
+    const { pageInterval } = this.state
+    const startIndex = this.currentPage() * pageInterval
+    const endIndex = startIndex + pageInterval
+    return [startIndex, endIndex]
+  }
+
+  dataToDisplay () {
+    const {data} = this.props
+    const [startIndex, endIndex] = this.indexOfDataInView()
+    return data.slice(startIndex, endIndex)
   }
 
   render () {
@@ -107,7 +109,7 @@ class Table extends React.Component {
         </div>
 
         <div className='Table-items'>
-          {this.currentPagination().map((datum, i) => {
+          {this.dataToDisplay().map((datum, i) => {
             return (
               <div key={i} className='Table-row' >
                 {this.buildTableItems(datum)}
@@ -115,6 +117,14 @@ class Table extends React.Component {
             )
           })}
         </div>
+
+        <TableFooter
+          numOfPages={this.numberOfPages()}
+          currPage={this.currentPage()}
+          selectPage={this.handlePageSelection}
+          nextPage={this.nextPage}
+          previousPage={this.previousPage}
+          />
 
       </div>
     )

@@ -5,8 +5,6 @@ export const filterTrackList = () => {
     const { filter, entities } = getState()
     const { filterOptions } = filter
     const { trackList, tracks } = entities
-    console.log(filter)
-
     const filteredTrackList = filteredTracks(trackList, tracks, filterOptions)
     dispatch(ActionCreators.setFilteredTrackList(filteredTrackList))
   }
