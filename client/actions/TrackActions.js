@@ -23,6 +23,7 @@ export const getTrackData = () => {
 
 export function paginateTrackItems (accessToken, url = API.trackUrl, items = []) {
   if (!url) {
+    console.info('in the !url')
     const normalizedData = normalizeTrackArray(items)
     const trackIds = normalizedData.result.map((item) => {
       return item.track
@@ -31,15 +32,20 @@ export function paginateTrackItems (accessToken, url = API.trackUrl, items = [])
     return paginateTrackAudioAnalysis(accessToken, normalizedData, trackIds)
   }
 
-  // KEEP THIS JUST FOR DEV TO NOT BLOW UP SPOTIFY SERVERS
-  // if (items.length > 140) {
-  //   // NEEDS TO BE SAME AS if (!URL)
-  //   const normalizedData = normalizeTrackArray(items)
-  //   const trackIds = normalizedData.result.map((item) => {
-  //     return item.track
-  //   })
+  // JUST FOR DEV TO NOT BLOW UP SPOTIFY SERVERS
+  // console.info(process.env.NODE_ENV)
+  // if (process.env.NODE_ENV) {
+  //   console.info('IN HTE LOOP')
+  //   if (items.length > 140) {
+  //     console.info('Items.length > 140')
+  //     // NEEDS TO BE SAME AS if (!URL)
+  //     const normalizedData = normalizeTrackArray(items)
+  //     const trackIds = normalizedData.result.map((item) => {
+  //       return item.track
+  //     })
 
-  //   return paginateTrackAudioAnalysis(accessToken, normalizedData, trackIds)
+  //     return paginateTrackAudioAnalysis(accessToken, normalizedData, trackIds)
+  //   }
   // }
 
   return fetch(url, API.GETRequest(accessToken))
